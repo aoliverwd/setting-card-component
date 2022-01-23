@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings Card</title>
+</head>
+<body>
+
+    <setting-card title="Card title">
+
+        <form-input type="text" title="Your name" name="name" value="" required>Enter your name</form-input>
+        <form-input type="email" title="Your email address" name="email" value="" required>Enter your email address</form-input>
+
+        <button type="button">Save</button>
+    </setting-card>
+
+    <script type="module">
+        import {SettingCard, FormInput} from './settings-card.js';
+    </script>
+</body>
+</html>
