@@ -4,26 +4,40 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Settings Card</title>
+
+    <style>
+        body{
+            background-color: #EEEEEF;
+            font-family: sans-serif;
+            display: flex;
+            margin: 40px;
+            gap: 20px;
+        }
+
+        body > *{
+            width: 100%;
+            max-width: 400px;
+        }
+    </style>
 </head>
 <body>
 
+    <setting-card card-title="Card title">
 
+        <form-input type="text" title="Your name" name="name" value="" required="required">Please enter your name</form-input>
+        <form-input type="email" title="Your email address" name="email" value="" required="required">Please enter your email address</form-input>
 
-    <setting-card title="Card title">
+        <form-input type="password" title="Some password" name="some_password" value="" required="required">Please add a password</form-input>
+        <form-input type="toggle" title="Some toggle" name="toggle" checked="checked"></form-input>
 
-        <form-input type="text" title="Your name" name="name" value="" required="required">Enter your name</form-input>
-        <form-input type="email" title="Your email address" name="email" value="" required="required">Enter your email address</form-input>
+        <hr>
 
         <button type="button" class="update_settings">Save</button>
     </setting-card>
 
 
-
-
-
-
     <script type="module">
-        import {SettingCard, FormInput} from './settings-card.js';
+        import {SettingCard, FormInput} from './src/settings-card.js';
     </script>
 </body>
 </html>
