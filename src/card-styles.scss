@@ -1,3 +1,92 @@
 .setting_card{
-    background-color: honeydew;
+    box-shadow: 0 0 4px hsla(0, 0%, 0%, 0.1);
+    height: calc(100% - 4rem);
+    background-color: white;
+    border-radius: 4px;
+    font-size: 1rem;
+    padding: 2rem;
+
+    .content{
+        &.processing{
+            pointer-events: none;
+
+            > *:not(button){
+                opacity: 0.4;
+            }
+        }
+    }
+
+    @keyframes spinner {
+        from {
+            transform: rotate(0deg);
+        }
+        to { 
+            transform: rotate(360deg);
+        }
+    }
+
+    button{
+        all: unset;
+        background-color: hotpink;
+        position: relative;
+        border-radius: 4px;
+        padding: 0.5em 1em;
+        font-size: inherit;
+        cursor: pointer;
+        line-height: 1;
+        color: white;
+
+        &:hover{
+            background-color: black;
+        }
+
+        &.processing{
+
+            padding-right: 40px;
+
+            &::after{
+                animation-timing-function: ease-in-out;
+                animation-iteration-count: infinite;
+                animation-name: spinner;
+                animation-duration: 1s;
+
+                background-color: #333;
+                position: absolute;
+                border-radius: 4px;
+                display: block;
+                height: 15px;
+                content: "";
+                width: 15px;
+                z-index: 1;
+                right: 10px;
+                top: 8px;
+            }
+        }
+    }
+
+    .card_title{
+        font-weight: normal;
+        font-size: 1.5em;
+        margin-block: 0;
+        line-height: 1;
+
+        &::after{
+            background-color: rgba(0, 0, 0, 0.1);
+            margin-block: 1.2rem;
+            display: block;
+            height: 1px;
+            content: "";
+            width: 100%;
+        }
+    }
+
+    hr{
+        all:unset;
+        background-color: rgba(0, 0, 0, 0.1);
+        margin-block: 1.2rem;
+        display: block;
+        height: 1px;
+        content: "";
+        width: 100%;
+    }
 }
