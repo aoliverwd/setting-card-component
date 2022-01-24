@@ -10,7 +10,7 @@ defaults:
 
 jobs:
   purge_js:
-    runs-on: alpine
+    runs-on: ubuntu-latest
     steps:
     - name: curl
       uses: wei/curl@master
