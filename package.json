@@ -1,8 +1,10 @@
 {
     "scripts": {
-        "css": "node-sass --output-style compressed --source-map true --source-map-contents true --precision 6 -w src/ -o dist/"
+        "css": "node-sass --output-style compressed --source-map true --source-map-contents true --precision 6 -w src/ -o dist/",
+        "build": "./minify.sh"
     },
     "dependencies": {
+        "minify": "^8.0.3",
         "node-sass": "^7.0.0"
     }
 }
