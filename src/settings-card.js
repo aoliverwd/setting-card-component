@@ -1,4 +1,6 @@
-// Settings card component
+/**
+ * Settings card component
+ */
 export class SettingCard extends HTMLElement {
 
     constructor() {
@@ -37,18 +39,74 @@ export class SettingCard extends HTMLElement {
     }
 
     updateSettings(button) {
-        //const button_text = button.textContent;
+        const button_text = button.textContent;
+        const content = button.closest('.content');
+
+        // Form processing status
         button.textContent = 'Processing';
         button.classList.add('processing');
-        button.closest('.content').classList.add('processing');
+        content.classList.add('processing');
 
-        this.getInputFields();
+        // Get post data and convert into base64
+        const post_data = btoa(JSON.stringify(this.getInputFields()));
+
+        // Send post request
+        this.sendPostRequest(post_data).then((data) => {
+            console.log(data);
+
+            setTimeout(() => {
+                // Restore button
+                content.classList.remove('processing');
+                button.classList.remove('processing');
+                button.textContent = button_text;
+            }, 1000);
+        });
     }
 
     getInputFields() {
+        const inputs = {};
+
         this.shadowRoot.querySelectorAll('form-input').forEach((input) => {
-            console.log(input.shadowRoot);
+            const this_input = input.shadowRoot.querySelector('input');
+            try {
+                inputs[this_input.name] = {
+                    value: this_input.value,
+                    name: this_input.name,
+                    type: this_input.type,
+                    required: this_input.required || false
+                };
+
+                switch (this_input.type) {
+                case 'checkbox':
+                case 'radio':
+                    inputs[this_input.name].checked = (this_input.checked ? true : false);
+                    break;
+                }
+            } catch (err) {
+                console.error('Input not found or is missing attributes');
+            }
         });
+
+        return inputs;
+    }
+
+   async  sendPostRequest(post_data) {
+        const post_to_endpoint = this.getAttribute('post-to-endpoint') || false;
+
+        const response = await fetch(post_to_endpoint, {
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            redirect: 'follow',
+            cache: 'no-cache',
+            method: 'POST',
+            mode: 'cors',
+            body: JSON.stringify({
+                base: post_data
+            })
+        });
+
+        return response.json();
     }
 }
 
@@ -56,7 +114,9 @@ window.customElements.define('setting-card', SettingCard);
 
 
 
-// Form input component
+/**
+ * Form input component
+ */
 export class FormInput extends HTMLElement {
 
     constructor() {
