@@ -1,0 +1,8 @@
+{
+    "scripts": {
+        "css": "node-sass --output-style compressed --source-map true --source-map-contents true --precision 6 -w src/ -o dist/"
+    },
+    "dependencies": {
+        "node-sass": "^7.0.0"
+    }
+}

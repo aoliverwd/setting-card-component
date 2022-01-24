@@ -1,0 +1,12 @@
+{
+	"version": 3,
+	"file": "card-styles.css",
+	"sources": [
+		"../src/card-styles.scss"
+	],
+	"sourcesContent": [
+		".setting_card{\n    background-color: honeydew;\n}"
+	],
+	"names": [],
+	"mappings": "AAAA,AAAA,aAAa,AAAA,CACT,gBAAgB,CAAE,QAAQ,CAC7B"
+}
