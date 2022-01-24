@@ -53,14 +53,13 @@ export class SettingCard extends HTMLElement {
         // Send post request
         this.sendPostRequest(post_data).then((data) => {
             console.log(data);
-
-            setTimeout(() => {
-                // Restore button
-                content.classList.remove('processing');
-                button.classList.remove('processing');
-                button.textContent = button_text;
-            }, 1000);
+        }).catch((err) => {
+            console.error(err);
         });
+
+        content.classList.remove('processing');
+        button.classList.remove('processing');
+        button.textContent = button_text;
     }
 
     getInputFields() {
@@ -123,9 +122,7 @@ export class FormInput extends HTMLElement {
         super();
 
         this.attachShadow({mode: 'open'});
-
         const template = this.getTemplate();
-
         this.innerHTML = '';
         this.shadowRoot.appendChild(template.content.cloneNode(true));
     }
