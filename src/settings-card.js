@@ -29,7 +29,7 @@ export class SettingCard extends HTMLElement {
         const title = this.getAttribute('card-title');
         const template = document.createElement('template');
         template.innerHTML = `
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/aoliverwd/setting-card-component@main/dist/card-styles.css">
+        <link rel="stylesheet" href="./dist/card-styles.css">
 
         <div class="setting_card">
             <h1 class="card_title">${title}</h1>
@@ -57,9 +57,11 @@ export class SettingCard extends HTMLElement {
             console.error(err);
         });
 
-        content.classList.remove('processing');
-        button.classList.remove('processing');
-        button.textContent = button_text;
+        setTimeout(() => {
+            content.classList.remove('processing');
+            button.classList.remove('processing');
+            button.textContent = button_text;
+        }, 1000);
     }
 
     getInputFields() {
@@ -132,7 +134,7 @@ export class FormInput extends HTMLElement {
         const this_input = this.getInput();
 
         template.innerHTML = `
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/aoliverwd/setting-card-component@main/dist/input-styles.css">
+        <link rel="stylesheet" href="./dist/input-styles.css">
         ${this_input}`;
 
         return template;

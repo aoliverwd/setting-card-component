@@ -6,8 +6,19 @@
     <title>Settings Card</title>
 
     <style>
+
+        :root{
+            --accent_button: hsl(207, 68%, 41%);
+            --accent_button_hover: hsl(206, 78%, 33%);
+            --accent_button_active: hsl(205, 85%, 25%);
+            --accent_button_color: hsl(0, 0%, 100%);
+
+            --input_background: hsl(240, 3%, 94%);
+            --body_color: hsl(0, 0%, 20%);
+        }
+
         body{
-            background-color: #EEEEEF;
+            background-color: hsl(240, 3%, 94%);
             font-family: sans-serif;
             display: flex;
             margin: 40px;
@@ -32,7 +43,7 @@
 
         <hr>
 
-        <button type="button" class="update_settings">Save</button>
+        <button type="button" class="update_settings">Save Settings</button>
     </setting-card>
 
 

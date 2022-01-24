@@ -1,4 +1,5 @@
 .setting_card{
+
     box-shadow: 0 0 4px hsla(0, 0%, 0%, 0.1);
     height: calc(100% - 4rem);
     background-color: white;
@@ -27,22 +28,27 @@
 
     button{
         all: unset;
-        background-color: hotpink;
+        background-color: var(--accent_button, hsl(330, 98%, 60%));
+        color: var(--accent_button_color, white);
+        padding: 0.8rem 1.5rem;
         position: relative;
         border-radius: 4px;
-        padding: 0.5em 1em;
         font-size: inherit;
         cursor: pointer;
         line-height: 1;
         color: white;
 
         &:hover{
-            background-color: black;
+            background-color: var(--accent_button_hover, hsl(330, 98%, 50%));
+        }
+
+        &:focus{
+            background-color: var(--accent_button_active, hsl(330, 98%, 40%));
         }
 
         &.processing{
 
-            padding-right: 40px;
+            padding-right: 50px;
 
             &::after{
                 animation-timing-function: ease-in-out;
@@ -50,16 +56,17 @@
                 animation-name: spinner;
                 animation-duration: 1s;
 
-                background-color: #333;
+                background-color: var(--accent_button_color, white);
+                transform: translateX(-50%);
+                top: calc(50% - 7px);
                 position: absolute;
                 border-radius: 4px;
                 display: block;
                 height: 15px;
                 content: "";
                 width: 15px;
+                right: 15px;
                 z-index: 1;
-                right: 10px;
-                top: 8px;
             }
         }
     }
