@@ -63,16 +63,19 @@ p{
             top: 0;
 
             &::before{
+                transition-property: transform, border-radius;
+                transition-timing-function: ease;
+                transition-duration: 200ms;
+
                 background-color: var(--body_color, hsl(0, 0%, 20%));
-                transition: transform ease 200ms;
                 transform: translateY(-50%);
                 border-radius: 4px;
                 position: absolute;
                 opacity: 0.9;
-                height: 26px;
+                height: 22px;
                 content: "";
-                width: 26px;
-                left: 4px;
+                width: 22px;
+                left: 8px;
                 top: 50%;
             }
 

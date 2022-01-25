@@ -8,27 +8,27 @@ defaults:
   run:
     working-directory: tests
 
-jobs:
-  purge_js:
-    runs-on: ubuntu-latest
-    steps:
-    - name: curl
-      uses: wei/curl@master
-      with:
-        args: https://purge.jsdelivr.net/gh/aoliverwd/setting-card-component@main/dist/settings-card.min.js
+# jobs:
+#   purge_js:
+#     runs-on: ubuntu-latest
+#     steps:
+#     - name: curl
+#       uses: wei/curl@master
+#       with:
+#         args: https://purge.jsdelivr.net/gh/aoliverwd/setting-card-component@main/dist/settings-card.min.js
 
-  purge_card_css:
-    runs-on: ubuntu-latest
-    steps:
-    - name: curl
-      uses: wei/curl@master
-      with:
-        args: https://purge.jsdelivr.net/gh/aoliverwd/setting-card-component@main/dist/card-styles.css
+#   purge_card_css:
+#     runs-on: ubuntu-latest
+#     steps:
+#     - name: curl
+#       uses: wei/curl@master
+#       with:
+#         args: https://purge.jsdelivr.net/gh/aoliverwd/setting-card-component@main/dist/card-styles.css
 
-  purge_inputs_css:
-    runs-on: ubuntu-latest
-    steps:
-    - name: curl
-      uses: wei/curl@master
-      with:
-        args: https://purge.jsdelivr.net/gh/aoliverwd/setting-card-component@main/dist/input-styles.css
+#   purge_inputs_css:
+#     runs-on: ubuntu-latest
+#     steps:
+#     - name: curl
+#       uses: wei/curl@master
+#       with:
+#         args: https://purge.jsdelivr.net/gh/aoliverwd/setting-card-component@main/dist/input-styles.css

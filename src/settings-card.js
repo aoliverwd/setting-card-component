@@ -20,18 +20,30 @@ export class SettingCard extends HTMLElement {
             this.shadowRoot.querySelector('button.update_settings').onclick = (element) => {
                 this.updateSettings(element.target);
             };
+
+            // Add return field
+            const return_text = document.createElement('p');
+            return_text.id = 'return_text';
+            this.shadowRoot.querySelector('.setting_card').appendChild(return_text);
+
         } catch (err) {
             console.error('Save settings button does not exist');
         }
+
+        setTimeout(() => {
+            this.shadowRoot.querySelector('.setting_card').classList.add("loaded");
+        }, 500);
     }
 
     getTemplate() {
         const title = this.getAttribute('card-title');
         const template = document.createElement('template');
-        template.innerHTML = `
-        <link rel="stylesheet" href="./dist/card-styles.css">
+        const style_path = this.getAttribute('style_path') || './';
 
-        <div class="setting_card">
+        template.innerHTML = `
+        <link rel="stylesheet" href="${style_path}card-styles.css">
+
+        <div class="setting_card" data-style_path="${style_path}">
             <h1 class="card_title">${title}</h1>
             <div class="content"></div>
         </div>`;
@@ -49,10 +61,19 @@ export class SettingCard extends HTMLElement {
 
         // Get post data and convert into base64
         const post_data = btoa(JSON.stringify(this.getInputFields()));
+        let is_error = false;
+        let messages;
 
         // Send post request
         this.sendPostRequest(post_data).then((data) => {
-            console.log(data);
+            if (data.success) {
+                console.debug(data.messages);
+                messages = data.messages;
+            } else {
+                console.error(data.messages);
+                messages = data.messages;
+                is_error = true;
+            }
         }).catch((err) => {
             console.error(err);
         });
@@ -61,7 +82,24 @@ export class SettingCard extends HTMLElement {
             content.classList.remove('processing');
             button.classList.remove('processing');
             button.textContent = button_text;
+            this.showReturnField(messages, is_error);
         }, 1000);
+    }
+
+    showReturnField (messages, is_error) {
+        const return_field = this.shadowRoot.querySelector('#return_text');
+        return_field.innerHTML = messages.join(', ');
+        return_field.setAttribute('class', '');
+
+        if (is_error) {
+            return_field.classList.add('error');
+        }
+
+        return_field.classList.add('show');
+
+        setTimeout(() => {
+            return_field.classList.remove('show');
+        }, 2500);
     }
 
     getInputFields() {
@@ -81,6 +119,7 @@ export class SettingCard extends HTMLElement {
                 case 'checkbox':
                 case 'radio':
                     inputs[this_input.name].checked = (this_input.checked ? true : false);
+                    inputs[this_input.name].value = inputs[this_input.name].checked;
                     break;
                 }
             } catch (err) {
@@ -96,7 +135,8 @@ export class SettingCard extends HTMLElement {
 
         const response = await fetch(post_to_endpoint, {
             headers: {
-              'Content-Type': 'application/json'
+              'Content-Type': 'application/json',
+              'X-WP-Nonce': this.getAttribute('wp_nonce') || ''
             },
             redirect: 'follow',
             cache: 'no-cache',
@@ -132,9 +172,10 @@ export class FormInput extends HTMLElement {
     getTemplate() {
         const template = document.createElement('template');
         const this_input = this.getInput();
+        const style_path = this.closest('.setting_card').getAttribute('data-style_path') || './';
 
         template.innerHTML = `
-        <link rel="stylesheet" href="./dist/input-styles.css">
+        <link rel="stylesheet" href="${style_path}input-styles.css">
         ${this_input}`;
 
         return template;
@@ -154,6 +195,7 @@ export class FormInput extends HTMLElement {
                         ` + (input_defaults.checked ? `checked="checked"` : '') + `
                         name="${input_defaults.name}"
                         value="${input_defaults.value}"
+                        aria-label="${input_defaults.title}"
                     >
                     <span class="slider"></span>
                 </label>
@@ -169,6 +211,7 @@ export class FormInput extends HTMLElement {
                     value="${input_defaults.value}"
                     ` + (input_defaults.required ? `required="required"` : '') + `
                     placeholder="${input_defaults.placeholder}"
+                    aria-label="${input_defaults.title}"
                 >
                 <small>${input_defaults.helper_text}</small>
             </p>`;
