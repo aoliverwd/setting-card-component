@@ -16,8 +16,10 @@ p{
         }
     }
 
-    small{
-        display: none;
+    .helper{
+        margin-block: 5px 0;
+        display: block;
+        opacity: 0.6;
     }
 
     .toggle {

@@ -189,6 +189,7 @@ export class FormInput extends HTMLElement {
             return `
             <p>
                 <label for="${input_defaults.name}">${input_defaults.title}:</label>
+                <small class="helper">${input_defaults.helper_text}</small>
                 <label class="toggle">
                     <input
                         type="checkbox"
@@ -204,6 +205,7 @@ export class FormInput extends HTMLElement {
             return `
             <p>
                 <label for="${input_defaults.name}">${input_defaults.title}:</label>
+                <small class="helper">${input_defaults.helper_text}</small>
                 <input
                     type="${input_defaults.type}"
                     name="${input_defaults.name}"
@@ -213,7 +215,6 @@ export class FormInput extends HTMLElement {
                     placeholder="${input_defaults.placeholder}"
                     aria-label="${input_defaults.title}"
                 >
-                <small>${input_defaults.helper_text}</small>
             </p>`;
         }
 
