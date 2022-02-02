@@ -35,20 +35,31 @@
 
     <setting-card card-title="Card title" post-to-endpoint="/ajax-request.php" style_path="./dist/">
 
-        <form-input type="text" title="Your name" name="name" value="" required="required">Please enter your name</form-input>
-        <form-input type="email" title="Your email address" name="email" value="" required="required">Please enter your email address</form-input>
+        <form-input type="hidden" name="some_hidden_field" value="Hidden field value"></form-input>
 
+        <div class="split_section">
+            <form-input type="text" title="Your first name" name="first_name" value="" required="required">Please enter your first name</form-input>
+            <form-input type="text" title="Your last name" name="last_name" value="" required="required">Please enter your last name</form-input>
+        </div>
+
+        <form-input type="email" title="Your email address" name="email" value="" required="required">Please enter your email address</form-input>
         <form-input type="password" title="Some password" name="some_password" value="" required="required">Please add a password</form-input>
         <form-input type="toggle" title="Some toggle" name="toggle" checked="checked"></form-input>
 
         <hr>
 
         <button type="button" class="update_settings">Save Settings</button>
+
+        <hr>
+        <p>Button group</p>
+        <div class="group">
+            <button type="button">Some button</button>
+            <button type="button">Another button</button>
+        </div>
     </setting-card>
 
-
     <script type="module">
-        import {SettingCard, FormInput} from './src/settings-card.js';
+        import {SettingCard, FormInput} from './dist/settings-card.min.js';
     </script>
 </body>
 </html>

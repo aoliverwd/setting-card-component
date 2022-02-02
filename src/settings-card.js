@@ -201,6 +201,13 @@ export class FormInput extends HTMLElement {
                     <span class="slider"></span>
                 </label>
             </p>`;
+        case 'hidden':
+            return `
+            <input
+                type="hidden"
+                name="${input_defaults.name}"
+                value="${input_defaults.value}"
+            >`;
         default:
             return `
             <p>

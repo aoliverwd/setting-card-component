@@ -27,6 +27,21 @@
         }
     }
 
+    .group{
+        display: flex;
+        gap: 10px;
+    }
+
+    .split_section{
+        grid-template-columns: repeat(2, 1fr);
+        display: grid;
+        gap: 10px;
+    }
+
+    form-input[type="hidden"]{
+        display: none;
+    }
+
     button{
         all: unset;
         background-color: var(--accent_button, hsl(330, 98%, 60%));
