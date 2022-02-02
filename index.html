@@ -40,20 +40,24 @@
         <div class="split_section">
             <form-input type="text" title="Your first name" name="first_name" value="" required="required">Please enter your first name</form-input>
             <form-input type="text" title="Your last name" name="last_name" value="" required="required">Please enter your last name</form-input>
-        </div>
 
-        <form-input type="email" title="Your email address" name="email" value="" required="required">Please enter your email address</form-input>
-        <form-input type="password" title="Some password" name="some_password" value="" required="required">Please add a password</form-input>
+            <form-input type="email" title="Your email address" name="email" value="" required="required">Please enter your email address</form-input>
+            <form-input type="password" title="Some password" name="some_password" value="" required="required">Please add a password</form-input>
+        </div>
 
         <form-input type="textarea" title="Your message" name="message" value="" required="required">Please enter your message</form-input>
 
-        <form-input type="toggle" title="Some toggle" name="toggle" checked="checked"></form-input>
+        <div class="group">
+            <form-input type="toggle" title="Checked toggle" name="toggle" checked="checked"></form-input>
+            <form-input type="toggle" title="Unchecked toggle" name="another_toggle"></form-input>
+        </div>
 
         <hr>
 
         <button type="button" class="update_settings">Save Settings</button>
 
         <hr>
+
         <p>Button group</p>
         <div class="group">
             <button type="button" data-action="some_function">Some button</button>

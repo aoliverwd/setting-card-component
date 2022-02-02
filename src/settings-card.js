@@ -33,7 +33,7 @@ export class SettingCard extends HTMLElement {
         // Button actions
         this.shadowRoot.querySelectorAll('button[data-action]').forEach((this_button) => {
             const class_instance = this;
-            this_button.addEventListener("click", () => {
+            this_button.addEventListener('click', () => {
                 const action = this_button.getAttribute('data-action');
                 if (action.length > 0 && typeof window[action] === 'function') {
                     window[action].call(this, this_button, class_instance);
@@ -42,7 +42,7 @@ export class SettingCard extends HTMLElement {
         });
 
         setTimeout(() => {
-            this.shadowRoot.querySelector('.setting_card').classList.add("loaded");
+            this.shadowRoot.querySelector('.setting_card').classList.add('loaded');
         }, 500);
     }
 
@@ -141,7 +141,7 @@ export class SettingCard extends HTMLElement {
         return inputs;
     }
 
-   async  sendPostRequest(post_data) {
+   async sendPostRequest(post_data) {
         const post_to_endpoint = this.getAttribute('post-to-endpoint') || false;
 
         const response = await fetch(post_to_endpoint, {
