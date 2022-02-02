@@ -1,10 +1,12 @@
 p{
     font-size: 1rem;
 
-    input{
-        all: unset;
+    input,
+    textarea{
         background-color: hsl(240, 3%, 94%);
+        border: solid 1px hsl(240, 3%, 84%);
         width: calc(100% - 1.9rem);
+        font-family: inherit;
         margin-block: 0.5em;
         border-radius: 4px;
         font-size: inherit;
@@ -12,8 +14,14 @@ p{
         padding: 0.8em;
 
         &:focus{
-            outline: solid 2px var(--accent_button, hsl(330, 98%, 60%));
+            outline: solid 1px var(--accent_button, hsl(330, 98%, 60%));
+            border-color: var(--accent_button, hsl(330, 98%, 60%));
         }
+    }
+
+    textarea{
+        min-height: 100px;
+        resize: vertical;
     }
 
     .helper{

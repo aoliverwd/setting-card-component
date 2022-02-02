@@ -30,6 +30,17 @@ export class SettingCard extends HTMLElement {
             console.error('Save settings button does not exist');
         }
 
+        // Button actions
+        this.shadowRoot.querySelectorAll('button[data-action]').forEach((this_button) => {
+            const class_instance = this;
+            this_button.addEventListener("click", () => {
+                const action = this_button.getAttribute('data-action');
+                if (action.length > 0 && typeof window[action] === 'function') {
+                    window[action].call(this, this_button, class_instance);
+                }
+            });
+        });
+
         setTimeout(() => {
             this.shadowRoot.querySelector('.setting_card').classList.add("loaded");
         }, 500);
@@ -208,6 +219,21 @@ export class FormInput extends HTMLElement {
                 name="${input_defaults.name}"
                 value="${input_defaults.value}"
             >`;
+        case 'textarea':
+            return `
+            <p>
+                <label for="${input_defaults.name}">${input_defaults.title}:</label>
+                <small class="helper">${input_defaults.helper_text}</small>
+                <textarea
+                    type="${input_defaults.type}"
+                    name="${input_defaults.name}"
+                    id="${input_defaults.name}"
+                    ` + (input_defaults.required ? `required="required"` : '') + `
+                    placeholder="${input_defaults.placeholder}"
+                    aria-label="${input_defaults.title}"
+                    rows="${input_defaults.rows}"
+                >${input_defaults.value}</textarea>
+            </p>`;
         default:
             return `
             <p>
@@ -237,7 +263,8 @@ export class FormInput extends HTMLElement {
             value: this.getAttribute('value') || '',
             placeholder: this.getAttribute('placeholder') || '',
             checked: this.getAttribute('checked') || false,
-            helper_text: this.textContent || ''
+            helper_text: this.textContent || '',
+            rows: this.getAttribute('rows') || 5,
         };
     }
 }
