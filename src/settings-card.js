@@ -150,23 +150,38 @@ export class SettingCard extends HTMLElement {
         return inputs;
     }
 
-   async sendPostRequest(post_data) {
-        const post_to_endpoint = this.getAttribute('post-to-endpoint') || false;
+   async sendPostRequest(post_data, endpoint, method) {
+        const post_to_endpoint = typeof endpoint === 'string' && endpoint.length > 0 ? endpoint : this.getAttribute('post-to-endpoint') || false;
 
-        const response = await fetch(post_to_endpoint, {
+        let http_method = 'POST';
+
+        if (typeof method === 'string' && method.length > 0) {
+            switch(method.toLowerCase()) {
+            case 'get':
+            case 'put':
+            case 'delete':
+                http_method = method.toUpperCase();
+                break;
+            }
+        }
+
+        const fetch_paramaters = {
             headers: {
               'Content-Type': 'application/json',
               'X-WP-Nonce': this.getAttribute('wp_nonce') || ''
             },
             redirect: 'follow',
             cache: 'no-cache',
-            method: 'POST',
+            method: http_method,
             mode: 'cors',
-            body: JSON.stringify({
-                base: post_data
-            })
-        });
+            body: JSON.stringify({base: post_data})
+        };
 
+        if (http_method === 'GET') {
+            delete fetch_paramaters.body;
+        }
+
+        const response = await fetch(post_to_endpoint, fetch_paramaters);
         return response.json();
     }
 }
