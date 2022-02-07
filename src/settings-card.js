@@ -61,14 +61,25 @@ export class SettingCard extends HTMLElement {
         return template;
     }
 
-    updateSettings(button) {
-        const button_text = button.textContent;
+    formProcessing(button) {
         const content = button.closest('.content');
-
-        // Form processing status
+        const button_text = button.textContent;
         button.textContent = 'Processing';
         button.classList.add('processing');
         content.classList.add('processing');
+        return button_text;
+    }
+
+    formFinishedProcessing(button, button_text) {
+        const content = button.closest('.content');
+        content.classList.remove('processing');
+        button.classList.remove('processing');
+        button.textContent = button_text;
+    }
+
+    updateSettings(button) {
+        // Form processing status
+        const button_text = this.formProcessing(button);
 
         // Get post data and convert into base64
         const post_data = btoa(JSON.stringify(this.getInputFields()));
@@ -90,9 +101,7 @@ export class SettingCard extends HTMLElement {
         });
 
         setTimeout(() => {
-            content.classList.remove('processing');
-            button.classList.remove('processing');
-            button.textContent = button_text;
+            this.formFinishedProcessing(button, button_text);
             this.showReturnField(messages, is_error);
         }, 1000);
     }
