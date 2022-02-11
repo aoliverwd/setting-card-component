@@ -50,9 +50,16 @@ export class SettingCard extends HTMLElement {
         const title = this.getAttribute('card-title');
         const template = document.createElement('template');
         const style_path = this.getAttribute('style_path') || './';
+        const external_style = this.getAttribute('external_style') || './';
+        let external_style_file = '';
+
+        if (external_style.length > 0) {
+            external_style_file = `<link rel="stylesheet" href="${external_style}">`;
+        }
 
         template.innerHTML = `
         <link rel="stylesheet" href="${style_path}card-styles.css">
+        ${external_style_file}
 
         <div class="setting_card" data-style_path="${style_path}">
             <h1 class="card_title">${title}</h1>

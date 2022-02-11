@@ -28,6 +28,7 @@
     }
 
     .group{
+        flex-flow: row wrap;
         display: flex;
         gap: 1rem;
     }

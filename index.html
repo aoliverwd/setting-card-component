@@ -33,7 +33,7 @@
 </head>
 <body>
 
-    <setting-card card-title="Card title" post-to-endpoint="/ajax-request.php" style_path="./dist/">
+    <setting-card card-title="Card title" post-to-endpoint="/ajax-request.php" style_path="./dist/" external_style="./src/test.css">
 
         <form-input type="hidden" name="some_hidden_field" value="Hidden field value"></form-input>
 
@@ -61,6 +61,10 @@
         <p>Button group</p>
         <div class="group">
             <button type="button" data-action="some_function">Some button</button>
+            <button type="button" data-action="another_function">Another button</button>
+            <button type="button" data-action="another_function">Another button</button>
+            <button type="button" data-action="another_function">Another button</button>
+            <button type="button" data-action="another_function">Another button</button>
             <button type="button" data-action="another_function">Another button</button>
         </div>
     </setting-card>
