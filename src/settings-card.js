@@ -90,27 +90,27 @@ export class SettingCard extends HTMLElement {
 
         // Get post data and convert into base64
         const post_data = btoa(JSON.stringify(this.getInputFields()));
-        let is_error = false;
-        let messages;
+        let is_error = true;
+        let messages = ['No message to display'];
 
         // Send post request
         this.sendPostRequest(post_data).then((data) => {
             if (data.success) {
                 console.debug(data.messages);
                 messages = data.messages;
+                is_error = false;
             } else {
                 console.error(data.messages);
                 messages = data.messages;
                 is_error = true;
             }
+
+            this.formFinishedProcessing(button, button_text);
+            this.showReturnField(messages, is_error);
+
         }).catch((err) => {
             console.error(err);
         });
-
-        setTimeout(() => {
-            this.formFinishedProcessing(button, button_text);
-            this.showReturnField(messages, is_error);
-        }, 1000);
     }
 
     showReturnField (messages, is_error) {
