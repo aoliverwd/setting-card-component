@@ -129,31 +129,50 @@ export class SettingCard extends HTMLElement {
         }, 2500);
     }
 
+    validateInput (input) {
+        return input.value.length > 0 ? true : false;
+    }
+
     getInputFields() {
-        const inputs = {};
+        const inputs = {
+            valid: true
+        };
 
         this.shadowRoot.querySelectorAll('form-input').forEach((input) => {
             const this_input = input.shadowRoot.querySelector('input');
-            try {
-                inputs[this_input.name] = {
-                    value: this_input.value,
-                    name: this_input.name,
-                    type: this_input.type,
-                    required: this_input.required || false
-                };
+            if (this_input) {
+                try {
+                    inputs[this_input.name] = {
+                        value: this_input.value,
+                        name: this_input.name,
+                        type: this_input.type,
+                        required: this_input.required || false
+                    };
 
-                switch (this_input.type) {
-                case 'checkbox':
-                case 'radio':
-                    inputs[this_input.name].checked = (this_input.checked ? true : false);
-                    inputs[this_input.name].value = inputs[this_input.name].checked;
-                    break;
+                    switch (this_input.type) {
+                    case 'checkbox':
+                    case 'radio':
+                        inputs[this_input.name].checked = (this_input.checked ? true : false);
+                        inputs[this_input.name].value = inputs[this_input.name].checked;
+                        break;
+                    }
+
+                    if (this_input.type !== 'hidden') {
+                        const is_valid = this_input.required ? this.validateInput(this_input) : true;
+                        inputs[this_input.name].valid = is_valid;
+                        this_input.parentNode.classList.remove('invalid');
+                        if (!is_valid) {
+                            this_input.parentNode.classList.add('invalid');
+                            inputs.valid = false;
+                        }
+                    }
+                } catch (err) {
+                    console.error('Input not found or is missing attributes', this_input);
                 }
-            } catch (err) {
-                console.error('Input not found or is missing attributes');
             }
         });
 
+        console.debug(inputs);
         return inputs;
     }
 

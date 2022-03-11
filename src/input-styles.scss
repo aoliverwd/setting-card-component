@@ -100,4 +100,23 @@ p{
             }
         }
     }
+
+    &.invalid{
+        color: var(--input_error, hsl(330, 98%, 60%));
+
+        input,
+        textarea{
+            background-color: var(--input_error_background, hsl(330, 98%, 98%));
+            border-color: var(--input_error, hsl(330, 98%, 60%));
+
+            &:focus{
+                outline: solid 1px var(--input_error, hsl(330, 98%, 60%));
+                border-color: var(--input_error, hsl(330, 98%, 60%));
+            }
+        }
+
+        .helper{
+            opacity: 1;
+        }
+    }
 }
