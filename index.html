@@ -58,9 +58,37 @@
 
         <button type="button" class="update_settings">Save Settings</button>
 
-        <hr>
+    </setting-card>
 
-        <p>Button group</p>
+
+
+
+    <setting-card card-title="Card types" post-to-endpoint="/ajax-request.php" style_path="./dist/" external_style="./src/test.css">
+        <div class="notice">
+            <h2>Standard Card</h2>
+            <p>Et consequat dolore consectetur ut ut nisi proident quis cupidatat sunt qui dolore.</p>
+        </div>
+
+        <div class="notice info">
+            <h2>Information Card</h2>
+            <p>Et consequat dolore consectetur ut ut nisi proident quis cupidatat sunt qui dolore.</p>
+        </div>
+
+        <div class="notice warning">
+            <h2>Warning Card</h2>
+            <p>Et consequat dolore consectetur ut ut nisi proident quis cupidatat sunt qui dolore.</p>
+        </div>
+
+        <div class="notice error">
+            <h2>Error Card</h2>
+            <p>Et consequat dolore consectetur ut ut nisi proident quis cupidatat sunt qui dolore.</p>
+        </div>
+    </setting-card>
+
+
+
+
+    <setting-card card-title="Button Group" post-to-endpoint="/ajax-request.php" style_path="./dist/" external_style="./src/test.css">
         <div class="group">
             <button type="button" data-action="some_function">Some button</button>
             <button type="button" data-action="another_function">Another button</button>

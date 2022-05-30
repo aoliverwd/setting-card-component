@@ -87,10 +87,20 @@ export class SettingCard extends HTMLElement {
     updateSettings(button) {
         // Form processing status
         const button_text = this.formProcessing(button);
-
-        // Get post data and convert into base64
-        const post_data = btoa(JSON.stringify(this.getInputFields()));
         let is_error = true;
+
+        // Get post data
+        const inputs = this.getInputFields();
+
+        // Check inputs are valid
+        if (!inputs.valid) {
+            this.formFinishedProcessing(button, button_text);
+            this.showReturnField(['Some fields did not validate'], is_error);
+            return;
+        }
+
+        // convert inputs into base64
+        const post_data = btoa(JSON.stringify(inputs));
         let messages = ['No message to display'];
 
         // Send post request
@@ -126,7 +136,7 @@ export class SettingCard extends HTMLElement {
 
         setTimeout(() => {
             return_field.classList.remove('show');
-        }, 2500);
+        }, 3000);
     }
 
     validateInput (input) {
@@ -139,7 +149,7 @@ export class SettingCard extends HTMLElement {
         };
 
         this.shadowRoot.querySelectorAll('form-input').forEach((input) => {
-            const this_input = input.shadowRoot.querySelector('input');
+            const this_input = input.shadowRoot.querySelector('input, textarea');
             if (this_input) {
                 try {
                     inputs[this_input.name] = {
