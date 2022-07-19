@@ -18,6 +18,10 @@
         }
     }
 
+    a{
+        color: var(--accent_button, hsl(330, 98%, 60%));
+    }
+
     @keyframes spinner {
         from {
             transform: rotate(0deg);
@@ -43,6 +47,7 @@
         display: none;
     }
 
+    .button,
     button{
         all: unset;
         background-color: var(--accent_button, hsl(330, 98%, 60%));
@@ -86,6 +91,10 @@
                 z-index: 1;
             }
         }
+    }
+
+    .button{
+        text-decoration: none;
     }
 
     h1,
