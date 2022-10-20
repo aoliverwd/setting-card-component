@@ -288,7 +288,8 @@ export class FormInput extends HTMLElement {
                     type="${input_defaults.type}"
                     name="${input_defaults.name}"
                     id="${input_defaults.name}"
-                    ` + (input_defaults.required ? `required="required"` : '') + `
+                    ` + (input_defaults.required ? `required="required" ` : '') + `
+                    ` + (input_defaults.disabled ? `disabled ` : '') + `
                     placeholder="${input_defaults.placeholder}"
                     aria-label="${input_defaults.title}"
                     rows="${input_defaults.rows}"
@@ -304,7 +305,8 @@ export class FormInput extends HTMLElement {
                     name="${input_defaults.name}"
                     id="${input_defaults.name}"
                     value="${input_defaults.value}"
-                    ` + (input_defaults.required ? `required="required"` : '') + `
+                    ` + (input_defaults.required ? `required="required" ` : '') + `
+                    ` + (input_defaults.disabled ? `disabled` : '') + `
                     placeholder="${input_defaults.placeholder}"
                     aria-label="${input_defaults.title}"
                 >
@@ -320,6 +322,7 @@ export class FormInput extends HTMLElement {
             title: this.getAttribute('title') || '',
             name: this.getAttribute('name') || '',
             required: this.getAttribute('required') || false,
+            disabled: this.getAttribute('disabled') || false,
             value: this.getAttribute('value') || '',
             placeholder: this.getAttribute('placeholder') || '',
             checked: this.getAttribute('checked') || false,
