@@ -26,16 +26,16 @@ $components = array_map(function ($file) use ($path) {
             }
         }
 
-        file_put_contents($path . $file_info['basename'], $component);
+        file_put_contents($path . $file_info['filename'] . '-temp.js', $component);
     }
 
     return false;
 }, $components);
 
-exec('minify ' . $path . 'settings-card.js > ' . $path . 'settings-card.min.js');
-exec('minify ' . $path . 'form-input.js > ' . $path . 'form-input.min.js');
-exec('minify ' . $path . 'add-rows.js > ' . $path . 'add-rows.min.js');
+exec('minify ' . $path . 'settings-card-temp.js > ' . $path . 'settings-card.js');
+exec('minify ' . $path . 'form-input-temp.js > ' . $path . 'form-input.js');
+exec('minify ' . $path . 'add-rows-temp.js > ' . $path . 'add-rows.js');
 
-unlink($path . 'settings-card.js');
-unlink($path . 'form-input.js');
-unlink($path . 'add-rows.js');
+unlink($path . 'settings-card-temp.js');
+unlink($path . 'form-input-temp.js');
+unlink($path . 'add-rows-temp.js');
