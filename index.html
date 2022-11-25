@@ -129,9 +129,9 @@
 
     <script type="module">
         // CDN: https://cdn.jsdelivr.net/gh/aoliverwd/setting-card-component@main/dist/settings-card.min.js
-        import {SettingCard, formProcessing, formFinishedProcessing} from './src/settings-card.js';
-        import {FormInput} from './src/form-input.js';
-        import {AddRows} from './src/add-rows.js';
+        import {SettingCard, formProcessing, formFinishedProcessing} from './dist/settings-card.js';
+        import {FormInput} from './dist/form-input.js';
+        import {AddRows} from './dist/add-rows.js';
 
         // button functions
         window.some_function = (button, class_instance) => {
@@ -143,9 +143,11 @@
         }
 
         window.saveRows = (data, button) => {
-            // const form_content = formProcessing(button);
-            // formFinishedProcessing(button, form_content);
-            console.log(btoa(JSON.stringify(data)));
+            const form_content = formProcessing(button);
+            setTimeout(() => {
+                formFinishedProcessing(button, form_content);
+                console.log(btoa(JSON.stringify(data)));
+            }, 1000)
         }
     </script>
 </body>
