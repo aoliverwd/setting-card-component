@@ -28,87 +28,110 @@
         }
 
         body > *{
-            width: 100%;
+            grid-template-columns: 1fr;
+            align-self: flex-start;
             max-width: 600px;
+            display: grid;
+            width: 100%;
+            gap: 20px;
+        }
+
+        script{
+            display: none;
         }
     </style>
 </head>
 <body>
 
-    <setting-card card-title="Card Title" post-to-endpoint="/ajax-request.php" style_path="./dist/" external_style="./src/test.css">
+    <section>
+        <setting-card card-title="Card Title" post-to-endpoint="/ajax-request.php" style_path="./dist/" external_style="./src/test.css">
 
-        <form-input type="hidden" name="some_hidden_field" value="Hidden field value"></form-input>
+            <form-input type="hidden" name="some_hidden_field" value="Hidden field value"></form-input>
 
-        <p>Anim sed dolore veniam ut <a href="/cupidatat" target="_blank">cupidatat</a> pariatur culpa ullamco ea anim aliqua et in non sed proident esse id adipisicing labore in et adipisicing ex eiusmod sunt dolor est enim eiusmod eu id.</p>
+            <p>Anim sed dolore veniam ut <a href="/cupidatat" target="_blank">cupidatat</a> pariatur culpa ullamco ea anim aliqua et in non sed proident esse id adipisicing labore in et adipisicing ex eiusmod sunt dolor est enim eiusmod eu id.</p>
 
-        <div class="split_section">
-            <form-input type="text" title="Your first name" name="first_name" value="" required="required">Please enter your first name</form-input>
-            <form-input type="text" title="Your last name" name="last_name" value="" required="required">Please enter your last name</form-input>
+            <div class="split_section">
+                <form-input type="text" title="Your first name" name="first_name" value="" required="required">Please enter your first name</form-input>
+                <form-input type="text" title="Your last name" name="last_name" value="" required="required">Please enter your last name</form-input>
 
-            <form-input type="email" title="Your email address" name="email" value="" required="required">Please enter your email address</form-input>
-            <form-input type="password" title="Some password" name="some_password" value="" required="required">Please add a password</form-input>
-        </div>
+                <form-input type="email" title="Your email address" name="email" value="" required="required">Please enter your email address</form-input>
+                <form-input type="password" title="Some password" name="some_password" value="" required="required">Please add a password</form-input>
+            </div>
 
-        <form-input type="textarea" title="Your message" name="message" value="" required="required">Please enter your message</form-input>
+            <form-input type="textarea" title="Your message" name="message" value="" required="required">Please enter your message</form-input>
 
-        <form-input type="textarea" title="Disabled textarea" name="disabled_message" value="Some text" disabled="disabled"></form-input>
-        <form-input type="text" title="Disabled input" name="disabled_input" value="Some text" disabled="disabled"></form-input>
+            <form-input type="textarea" title="Disabled textarea" name="disabled_message" value="Some text" disabled="disabled"></form-input>
+            <form-input type="text" title="Disabled input" name="disabled_input" value="Some text" disabled="disabled"></form-input>
 
-        <div class="group">
-            <form-input type="toggle" title="Checked toggle" name="toggle" checked="checked"></form-input>
-            <form-input type="toggle" title="Unchecked toggle" name="another_toggle"></form-input>
-        </div>
+            <div class="group">
+                <form-input type="toggle" title="Checked toggle" name="toggle" checked="checked"></form-input>
+                <form-input type="toggle" title="Unchecked toggle" name="another_toggle"></form-input>
+            </div>
 
-        <hr>
+            <hr>
 
-        <button type="button" class="update_settings">Save Settings</button>
+            <button type="button" class="update_settings">Save Settings</button>
 
-    </setting-card>
+        </setting-card>
+    </section>
 
+    <section>
+        <setting-card card-title="Card Types" post-to-endpoint="/ajax-request.php" style_path="./dist/" external_style="./src/test.css">
+            <div class="notice">
+                <h2>Standard Card</h2>
+                <p>Et consequat dolore consectetur ut ut nisi proident quis cupidatat sunt qui dolore.</p>
+            </div>
 
+            <div class="notice info">
+                <h2>Information Card</h2>
+                <p>Et consequat dolore consectetur ut ut nisi proident quis cupidatat sunt qui dolore.</p>
+            </div>
 
+            <div class="notice warning">
+                <h2>Warning Card</h2>
+                <p>Et consequat dolore consectetur ut ut nisi proident quis cupidatat sunt qui dolore.</p>
+            </div>
 
-    <setting-card card-title="Card Types" post-to-endpoint="/ajax-request.php" style_path="./dist/" external_style="./src/test.css">
-        <div class="notice">
-            <h2>Standard Card</h2>
-            <p>Et consequat dolore consectetur ut ut nisi proident quis cupidatat sunt qui dolore.</p>
-        </div>
-
-        <div class="notice info">
-            <h2>Information Card</h2>
-            <p>Et consequat dolore consectetur ut ut nisi proident quis cupidatat sunt qui dolore.</p>
-        </div>
-
-        <div class="notice warning">
-            <h2>Warning Card</h2>
-            <p>Et consequat dolore consectetur ut ut nisi proident quis cupidatat sunt qui dolore.</p>
-        </div>
-
-        <div class="notice error">
-            <h2>Error Card</h2>
-            <p>Et consequat dolore consectetur ut ut nisi proident quis cupidatat sunt qui dolore.</p>
-        </div>
-    </setting-card>
-
-
+            <div class="notice error">
+                <h2>Error Card</h2>
+                <p>Et consequat dolore consectetur ut ut nisi proident quis cupidatat sunt qui dolore.</p>
+            </div>
+        </setting-card>
+    </section>
 
 
-    <setting-card card-title="Button Group" post-to-endpoint="/ajax-request.php" style_path="./dist/" external_style="./src/test.css">
-        <div class="group">
-            <button type="button" data-action="some_function">Some button</button>
-            <button type="button" data-action="another_function">Another button</button>
-            <button type="button" data-action="another_function">Another button</button>
-            <button type="button" data-action="another_function">Another button</button>
-            <button type="button" data-action="another_function">Another button</button>
-            <button type="button" data-action="another_function">Another button</button>
+    <section>
+        <setting-card card-title="Button Group" post-to-endpoint="/ajax-request.php" style_path="./dist/" external_style="./src/test.css">
+            <div class="group">
+                <button type="button" data-action="some_function">Some button</button>
+                <button type="button" data-action="another_function">Another button</button>
+                <button type="button" data-action="another_function">Another button</button>
+                <button type="button" data-action="another_function">Another button</button>
+                <button type="button" data-action="another_function">Another button</button>
+                <button type="button" data-action="another_function">Another button</button>
 
-            <a href="/" class="button">Button link</a>
-        </div>
-    </setting-card>
+                <a href="/" class="button">Button link</a>
+            </div>
+        </setting-card>
+
+
+        <setting-card card-title="Add Rows" style_path="./dist/" external_style="./src/test.css">
+            <add-row save-action="saveRows" load-data="">
+                <template>
+                    <form-input type="text" title="Your first name" name="first_name" value="" required="required">Please enter your first name</form-input>
+                    <form-input type="text" title="Your last name" name="last_name" value="" required="required">Please enter your last name</form-input>
+                    <form-input type="textarea" title="Test Text Input" name="text_text_input" value=""></form-input>
+                </template>
+            </add-row>
+        </setting-card>
+
+    </section>
 
     <script type="module">
         // CDN: https://cdn.jsdelivr.net/gh/aoliverwd/setting-card-component@main/dist/settings-card.min.js
-        import {SettingCard, FormInput} from './src/settings-card.js';
+        import {SettingCard, formProcessing, formFinishedProcessing} from './src/settings-card.js';
+        import {FormInput} from './src/form-input.js';
+        import {AddRows} from './src/add-rows.js';
 
         // button functions
         window.some_function = (button, class_instance) => {
@@ -117,6 +140,12 @@
 
         window.another_function = (button, class_instance) => {
             console.log(button);
+        }
+
+        window.saveRows = (data, button) => {
+            // const form_content = formProcessing(button);
+            // formFinishedProcessing(button, form_content);
+            console.log(btoa(JSON.stringify(data)));
         }
     </script>
 </body>

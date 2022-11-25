@@ -1,3 +1,66 @@
+const validateInput = (input) => {
+    return input.value.length > 0 ? true : false;
+};
+
+export const formProcessing = (button) => {
+    const content = button.closest('.content');
+    const button_text = button.textContent;
+    button.textContent = 'Processing';
+    button.classList.add('processing');
+    content.classList.add('processing');
+    return button_text;
+};
+
+export const formFinishedProcessing = (button, button_text) => {
+    const content = button.closest('.content');
+    content.classList.remove('processing');
+    button.classList.remove('processing');
+    button.textContent = button_text;
+};
+
+export const getInputFields = (context) => {
+    const inputs = {
+        valid: true
+    };
+
+    context.querySelectorAll('form-input').forEach((input) => {
+        const this_input = input.shadowRoot.querySelector('input, textarea');
+        if (this_input) {
+            try {
+                inputs[this_input.name] = {
+                    value: this_input.value,
+                    name: this_input.name,
+                    type: this_input.type,
+                    required: this_input.required || false
+                };
+
+                switch (this_input.type) {
+                case 'checkbox':
+                case 'radio':
+                    inputs[this_input.name].checked = (this_input.checked ? true : false);
+                    inputs[this_input.name].value = inputs[this_input.name].checked;
+                    break;
+                }
+
+                if (this_input.type !== 'hidden') {
+                    const is_valid = this_input.required ? validateInput(this_input) : true;
+                    inputs[this_input.name].valid = is_valid;
+                    this_input.parentNode.classList.remove('invalid');
+                    if (!is_valid) {
+                        this_input.parentNode.classList.add('invalid');
+                        inputs.valid = false;
+                    }
+                }
+            } catch (err) {
+                console.error('Input not found or is missing attributes', this_input);
+            }
+        }
+    });
+
+    // console.debug(inputs);
+    return inputs;
+};
+
 /**
  * Settings card component
  */
@@ -68,25 +131,9 @@ export class SettingCard extends HTMLElement {
         return template;
     }
 
-    formProcessing(button) {
-        const content = button.closest('.content');
-        const button_text = button.textContent;
-        button.textContent = 'Processing';
-        button.classList.add('processing');
-        content.classList.add('processing');
-        return button_text;
-    }
-
-    formFinishedProcessing(button, button_text) {
-        const content = button.closest('.content');
-        content.classList.remove('processing');
-        button.classList.remove('processing');
-        button.textContent = button_text;
-    }
-
     updateSettings(button) {
         // Form processing status
-        const button_text = this.formProcessing(button);
+        const button_text = formProcessing(button);
         let is_error = true;
 
         // Get post data
@@ -94,7 +141,7 @@ export class SettingCard extends HTMLElement {
 
         // Check inputs are valid
         if (!inputs.valid) {
-            this.formFinishedProcessing(button, button_text);
+            formFinishedProcessing(button, button_text);
             this.showReturnField(['Some fields did not validate'], is_error);
             return;
         }
@@ -115,7 +162,7 @@ export class SettingCard extends HTMLElement {
                 is_error = true;
             }
 
-            this.formFinishedProcessing(button, button_text);
+            formFinishedProcessing(button, button_text);
             this.showReturnField(messages, is_error);
 
         }).catch((err) => {
@@ -139,51 +186,8 @@ export class SettingCard extends HTMLElement {
         }, 3000);
     }
 
-    validateInput (input) {
-        return input.value.length > 0 ? true : false;
-    }
-
-    getInputFields() {
-        const inputs = {
-            valid: true
-        };
-
-        this.shadowRoot.querySelectorAll('form-input').forEach((input) => {
-            const this_input = input.shadowRoot.querySelector('input, textarea');
-            if (this_input) {
-                try {
-                    inputs[this_input.name] = {
-                        value: this_input.value,
-                        name: this_input.name,
-                        type: this_input.type,
-                        required: this_input.required || false
-                    };
-
-                    switch (this_input.type) {
-                    case 'checkbox':
-                    case 'radio':
-                        inputs[this_input.name].checked = (this_input.checked ? true : false);
-                        inputs[this_input.name].value = inputs[this_input.name].checked;
-                        break;
-                    }
-
-                    if (this_input.type !== 'hidden') {
-                        const is_valid = this_input.required ? this.validateInput(this_input) : true;
-                        inputs[this_input.name].valid = is_valid;
-                        this_input.parentNode.classList.remove('invalid');
-                        if (!is_valid) {
-                            this_input.parentNode.classList.add('invalid');
-                            inputs.valid = false;
-                        }
-                    }
-                } catch (err) {
-                    console.error('Input not found or is missing attributes', this_input);
-                }
-            }
-        });
-
-        console.debug(inputs);
-        return inputs;
+    getInputFields(context) {
+        return getInputFields(context ? context : this.shadowRoot);
     }
 
    async sendPostRequest(post_data, endpoint, method) {
@@ -223,113 +227,3 @@ export class SettingCard extends HTMLElement {
 }
 
 window.customElements.define('setting-card', SettingCard);
-
-
-
-/**
- * Form input component
- */
-export class FormInput extends HTMLElement {
-
-    constructor() {
-        super();
-
-        this.attachShadow({mode: 'open'});
-        const template = this.getTemplate();
-        this.innerHTML = '';
-        this.shadowRoot.appendChild(template.content.cloneNode(true));
-    }
-
-    getTemplate() {
-        const template = document.createElement('template');
-        const this_input = this.getInput();
-        const style_path = this.closest('.setting_card').getAttribute('data-style_path') || './';
-
-        template.innerHTML = `
-        <link rel="stylesheet" href="${style_path}input-styles.css">
-        ${this_input}`;
-
-        return template;
-    }
-
-    getInput() {
-        const input_defaults = this.gerDefaults();
-
-        switch (input_defaults.type) {
-        case 'toggle':
-            return `
-            <p>
-                <label for="${input_defaults.name}">${input_defaults.title}:</label>
-                <small class="helper">${input_defaults.helper_text}</small>
-                <label class="toggle">
-                    <input
-                        type="checkbox"
-                        ` + (input_defaults.checked ? `checked="checked"` : '') + `
-                        name="${input_defaults.name}"
-                        value="${input_defaults.value}"
-                        aria-label="${input_defaults.title}"
-                    >
-                    <span class="slider"></span>
-                </label>
-            </p>`;
-        case 'hidden':
-            return `
-            <input
-                type="hidden"
-                name="${input_defaults.name}"
-                value="${input_defaults.value}"
-            >`;
-        case 'textarea':
-            return `
-            <p>
-                <label for="${input_defaults.name}">${input_defaults.title}:</label>
-                <small class="helper">${input_defaults.helper_text}</small>
-                <textarea
-                    type="${input_defaults.type}"
-                    name="${input_defaults.name}"
-                    id="${input_defaults.name}"
-                    ` + (input_defaults.required ? `required="required" ` : '') + `
-                    ` + (input_defaults.disabled ? `disabled ` : '') + `
-                    placeholder="${input_defaults.placeholder}"
-                    aria-label="${input_defaults.title}"
-                    rows="${input_defaults.rows}"
-                >${input_defaults.value}</textarea>
-            </p>`;
-        default:
-            return `
-            <p>
-                <label for="${input_defaults.name}">${input_defaults.title}:</label>
-                <small class="helper">${input_defaults.helper_text}</small>
-                <input
-                    type="${input_defaults.type}"
-                    name="${input_defaults.name}"
-                    id="${input_defaults.name}"
-                    value="${input_defaults.value}"
-                    ` + (input_defaults.required ? `required="required" ` : '') + `
-                    ` + (input_defaults.disabled ? `disabled` : '') + `
-                    placeholder="${input_defaults.placeholder}"
-                    aria-label="${input_defaults.title}"
-                >
-            </p>`;
-        }
-
-        return '';
-    }
-
-    gerDefaults() {
-        return {
-            type: this.getAttribute('type') || 'text',
-            title: this.getAttribute('title') || '',
-            name: this.getAttribute('name') || '',
-            required: this.getAttribute('required') || false,
-            disabled: this.getAttribute('disabled') || false,
-            value: this.getAttribute('value') || '',
-            placeholder: this.getAttribute('placeholder') || '',
-            checked: this.getAttribute('checked') || false,
-            helper_text: this.textContent || '',
-            rows: this.getAttribute('rows') || 5,
-        };
-    }
-}
-
-window.customElements.define('form-input', FormInput);

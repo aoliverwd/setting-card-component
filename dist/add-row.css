@@ -1,0 +1,1 @@
+#rows{flex-flow:wrap;display:flex;gap:10px}#rows>*{border-bottom:solid 1px rgba(0,0,0,0.1);padding-block-end:20px;flex-basis:100%}#rows>*:last-child{margin-block-end:20px}#rows>* button[data-action="removeRow"]{margin-inline-start:auto;display:table}#buttons{display:flex;gap:1rem}
