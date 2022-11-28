@@ -1,12 +1,13 @@
 #rows{
     flex-flow: wrap;
     display: flex;
-    gap: 10px;
+    gap: 20px;
 
     > * {
-        border-bottom: solid 1px rgba(0, 0, 0, 0.1);
-        padding-block-end: 20px;
+        background-color: hsl(240, 3%, 94%);
+        border-radius: 6px;
         flex-basis: 100%;
+        padding: 20px;
 
         &:last-child{
             margin-block-end: 20px;
@@ -17,9 +18,46 @@
             display: table;
         }
     }
+
+    details{
+        &[open] {
+            summary{
+                margin-block-end: 20px;
+            }
+        }
+
+        summary{
+            position: relative;
+            font-size: 1.2rem;
+            list-style: none;
+            cursor: pointer;
+
+            &::-webkit-details-marker,
+            &::marker{
+                display: none;
+            }
+
+            &::after{
+                font-family: "classvr";
+                padding: 0.25rem; // 4px
+                font-weight: normal;
+                font-style: normal;
+                position: absolute;
+                border-radius: 50%;
+                font-style: 1rem;
+                content: "\e009";
+                line-height: 1;
+                speak: never;
+                right: 0;
+                top: 0;
+            }
+        }
+    }
 }
 
 #buttons{
+    border-bottom: solid 1px rgba(0, 0, 0, 0.1);
+    padding-block-end: 20px;
     display: flex;
     gap: 1rem;
 }

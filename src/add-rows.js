@@ -35,14 +35,17 @@ export class AddRows extends HTMLElement {
         const current_template = this.querySelector('template');
         const template_content = current_template ? current_template.innerHTML : '';
 
+        const add_row_text = this.getAttribute('addrow-text') || 'Add Row';
+        const save_button_text = this.getAttribute('save-text') || 'Save';
+
         template.innerHTML = `
         <link rel="stylesheet" href="${style_path}card-styles.css">
         <link rel="stylesheet" href="${style_path}add-row.css">
         <div class="content">
             <div id="rows"></div>
             <div id="buttons">
-                <button type="button" data-action="addRow">Add Row</button>
-                <button type="button" data-action="saveData">Save</button>
+                <button type="button" data-action="addRow">${add_row_text}</button>
+                <button type="button" data-action="saveData">${save_button_text}</button>
             </div>
         </div>
         <textarea id="rows_data" disabled style="display: none;"></textarea>
@@ -58,7 +61,7 @@ export class AddRows extends HTMLElement {
             const remove_button = document.createElement('button');
             remove_button.setAttribute('data-action', 'removeRow');
             remove_button.classList.add('warning');
-            remove_button.textContent = 'Remove row';
+            remove_button.textContent = this.getAttribute('removerow-text') || 'Remove Row';
 
             template_content.innerHTML = current_template.innerHTML;
             template_content.appendChild(remove_button);
@@ -71,16 +74,20 @@ export class AddRows extends HTMLElement {
 
     addRow(this_button, data) {
         const rows_container = this.shadowRoot.querySelector('#rows');
-        const new_row_element = document.createElement('div');
+        const new_row_element = document.createElement('details');
         const style_path_element = this.closest('[data-style_path]');
 
+        const row_title = this.getAttribute('row-title') || 'Row';
+        const row_number = rows_container.querySelectorAll('details').length + 1;
+
         new_row_element.setAttribute('class', 'row');
+        new_row_element.open = true;
 
         if (style_path_element) {
             new_row_element.setAttribute('data-style_path', style_path_element.getAttribute('data-style_path'));
         }
 
-        new_row_element.innerHTML = this.getCurrentTemplate();
+        new_row_element.innerHTML = `<summary>${row_title}: ${row_number}</summary>` + this.getCurrentTemplate();
 
         if (typeof data == 'object') {
             Object.keys(data).forEach((key) => {

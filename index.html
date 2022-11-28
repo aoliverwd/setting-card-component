@@ -116,7 +116,7 @@
 
 
         <setting-card card-title="Add Rows" style_path="./dist/" external_style="./src/test.css">
-            <add-row save-action="saveRows" load-data="">
+            <add-row save-action="saveRows" load-data="" addrow-text="Add new row" save-text="Save row" row-title="Some Row">
                 <template>
                     <form-input type="text" title="Your first name" name="first_name" value="" required="required">Please enter your first name</form-input>
                     <form-input type="text" title="Your last name" name="last_name" value="" required="required">Please enter your last name</form-input>
@@ -129,9 +129,9 @@
 
     <script type="module">
         // CDN: https://cdn.jsdelivr.net/gh/aoliverwd/setting-card-component@main/dist/settings-card.min.js
-        import {SettingCard, formProcessing, formFinishedProcessing} from './dist/settings-card.js';
-        import {FormInput} from './dist/form-input.js';
-        import {AddRows} from './dist/add-rows.js';
+        import {SettingCard, formProcessing, formFinishedProcessing} from './src/settings-card.js';
+        import {FormInput} from './src/form-input.js';
+        import {AddRows} from './src/add-rows.js';
 
         // button functions
         window.some_function = (button, class_instance) => {
