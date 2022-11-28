@@ -79,6 +79,7 @@ export class AddRows extends HTMLElement {
 
         const row_title = this.getAttribute('row-title') || 'Row';
         const row_number = rows_container.querySelectorAll('details').length + 1;
+        const array_svg = `<svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg"><path d="M511.9 652.4l379.9-365.6c13.8-13.7 36.2-13.7 50.1 0 13.8 13.7 13.8 35.9 0 49.6L537.1 737.3c-13.9 13.7-36.3 13.7-50.1 0L82.1 336.4c-13.9-13.7-13.8-35.9 0-49.6s36.2-13.7 50.1 0z"/></svg>`;
 
         new_row_element.setAttribute('class', 'row');
         new_row_element.open = true;
@@ -87,7 +88,7 @@ export class AddRows extends HTMLElement {
             new_row_element.setAttribute('data-style_path', style_path_element.getAttribute('data-style_path'));
         }
 
-        new_row_element.innerHTML = `<summary>${row_title}: ${row_number}</summary>` + this.getCurrentTemplate();
+        new_row_element.innerHTML = `<summary><span>${row_title}: ${row_number}</span>${array_svg}</summary>` + this.getCurrentTemplate();
 
         if (typeof data == 'object') {
             Object.keys(data).forEach((key) => {

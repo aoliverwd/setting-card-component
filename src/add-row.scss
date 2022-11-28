@@ -24,6 +24,10 @@
             summary{
                 margin-block-end: 20px;
             }
+
+            svg{
+                transform: rotate(180deg);
+            }
         }
 
         summary{
@@ -31,25 +35,17 @@
             font-size: 1.2rem;
             list-style: none;
             cursor: pointer;
+            display: flex;
+            gap: 10px;
 
             &::-webkit-details-marker,
             &::marker{
                 display: none;
             }
 
-            &::after{
-                font-family: "classvr";
-                padding: 0.25rem; // 4px
-                font-weight: normal;
-                font-style: normal;
-                position: absolute;
-                border-radius: 50%;
-                font-style: 1rem;
-                content: "\e009";
-                line-height: 1;
-                speak: never;
-                right: 0;
-                top: 0;
+            svg{
+                margin-inline-start: auto;
+                max-width: 20px;
             }
         }
     }
