@@ -114,7 +114,7 @@ export class FormInput extends HTMLElement {
             value: this.getAttribute('value') || '',
             placeholder: this.getAttribute('placeholder') || '',
             checked: this.getAttribute('checked') || false,
-            helper_text: this.textContent || '',
+            helper_text: this.textContent || this.getAttribute('helper') || '',
             rows: this.getAttribute('rows') || 5,
         };
     }

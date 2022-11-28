@@ -58,13 +58,14 @@ export class AddRows extends HTMLElement {
         const current_template = this.shadowRoot.querySelector('#row_template');
         if (current_template) {
             const template_content = document.createElement('div');
-            const remove_button = document.createElement('button');
-            remove_button.setAttribute('data-action', 'removeRow');
-            remove_button.classList.add('warning');
-            remove_button.textContent = this.getAttribute('removerow-text') || 'Remove Row';
+
+            // const remove_button = document.createElement('button');
+            // remove_button.setAttribute('data-action', 'removeRow');
+            // remove_button.classList.add('warning');
+            // remove_button.textContent = this.getAttribute('removerow-text') || 'Remove Row';
 
             template_content.innerHTML = current_template.innerHTML;
-            template_content.appendChild(remove_button);
+            // template_content.appendChild(remove_button);
 
             return template_content.innerHTML;
         }
@@ -72,23 +73,33 @@ export class AddRows extends HTMLElement {
         return ``;
     }
 
-    addRow(this_button, data) {
+    addRow(this_button, data, open_details = true) {
         const rows_container = this.shadowRoot.querySelector('#rows');
         const new_row_element = document.createElement('details');
         const style_path_element = this.closest('[data-style_path]');
 
+        const remove_button_text = this.getAttribute('removerow-text') || 'Remove Row';
         const row_title = this.getAttribute('row-title') || 'Row';
         const row_number = rows_container.querySelectorAll('details').length + 1;
         const array_svg = `<svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg"><path d="M511.9 652.4l379.9-365.6c13.8-13.7 36.2-13.7 50.1 0 13.8 13.7 13.8 35.9 0 49.6L537.1 737.3c-13.9 13.7-36.3 13.7-50.1 0L82.1 336.4c-13.9-13.7-13.8-35.9 0-49.6s36.2-13.7 50.1 0z"/></svg>`;
 
         new_row_element.setAttribute('class', 'row');
-        new_row_element.open = true;
+        if (open_details) {
+            new_row_element.open = true;
+        }
 
         if (style_path_element) {
             new_row_element.setAttribute('data-style_path', style_path_element.getAttribute('data-style_path'));
         }
 
-        new_row_element.innerHTML = `<summary><span>${row_title}: ${row_number}</span>${array_svg}</summary>` + this.getCurrentTemplate();
+        new_row_element.innerHTML = `
+        <summary>
+            <span>
+                ${row_title}: ${row_number}
+                <button data-action="removeRow" class="warning">${remove_button_text}</button>
+            </span>
+            ${array_svg}
+        </summary>` + this.getCurrentTemplate();
 
         if (typeof data == 'object') {
             Object.keys(data).forEach((key) => {
@@ -103,7 +114,7 @@ export class AddRows extends HTMLElement {
     }
 
     removeRow(this_button) {
-        this_button.parentNode.remove();
+        this_button.closest('details').remove();
     }
 
     saveData(this_button) {
@@ -132,7 +143,7 @@ export class AddRows extends HTMLElement {
             const data = JSON.parse(atob(load_data));
             if (Array.isArray(data)) {
                 data.forEach((row) => {
-                    this.addRow(null, row);
+                    this.addRow(null, row, false);
                 });
             }
         }
