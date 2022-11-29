@@ -7,7 +7,6 @@
         background-color: hsl(240, 3%, 94%);
         border-radius: 6px;
         flex-basis: 100%;
-        padding: 20px;
 
         &:last-child{
             margin-block-end: 20px;
@@ -20,24 +19,32 @@
     }
 
     details{
-        &[open] {
-            summary{
-                margin-block-end: 20px;
-            }
+        padding: 10px;
 
+        &[open] {
             svg{
                 transform: rotate(180deg);
+            }
+
+            summary{
+                background-color: white;
             }
         }
 
         summary{
-            position: relative;
             align-items: center;
+            position: relative;
+            border-radius: 6px;
             font-size: 1.2rem;
             list-style: none;
             cursor: pointer;
             display: flex;
+            padding: 10px;
             gap: 10px;
+
+            &:hover{
+                background-color: white;
+            }
 
             &::-webkit-details-marker,
             &::marker{
@@ -68,6 +75,10 @@
                     padding: 10px;
                 }
             }
+        }
+
+        > section{
+            padding: 0 10px 10px 10px;
         }
     }
 }

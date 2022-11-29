@@ -96,10 +96,11 @@ export class AddRows extends HTMLElement {
         <summary>
             <span>
                 ${row_title}: ${row_number}
-                <button data-action="removeRow" class="warning">${remove_button_text}</button>
+                <button data-action="removeRow" data-blur="resetButton" class="warning">${remove_button_text}</button>
             </span>
             ${array_svg}
-        </summary>` + this.getCurrentTemplate();
+        </summary>
+        <section>${this.getCurrentTemplate()}</section>`;
 
         if (typeof data == 'object') {
             Object.keys(data).forEach((key) => {
@@ -114,7 +115,24 @@ export class AddRows extends HTMLElement {
     }
 
     removeRow(this_button) {
-        this_button.closest('details').remove();
+        if (this_button.getAttribute('data-checked')) {
+            this_button.closest('details').remove();
+        } else {
+            this_button.setAttribute('data-checked', 'true');
+            this_button.setAttribute('data-text', this_button.textContent);
+            this_button.textContent = 'Remove Confirm';
+
+            this_button.addEventListener('mouseout', () => {
+                this.resetButton(this_button);
+            });
+        }
+    }
+
+    resetButton(this_button) {
+        if (this_button.getAttribute('data-checked')) {
+            this_button.removeAttribute('data-checked');
+            this_button.textContent = this_button.getAttribute('data-text');
+        }
     }
 
     saveData(this_button) {

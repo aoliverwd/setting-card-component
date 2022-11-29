@@ -116,26 +116,11 @@
 
 
         <setting-card card-title="Add Rows" style_path="./dist/" external_style="./src/test.css">
-            <!--
             <add-row save-action="saveRows" load-data="" addrow-text="Add new row" save-text="Save row" row-title="Some Row">
                 <template>
                     <form-input type="text" title="Your first name" name="first_name" value="" required="required">Please enter your first name</form-input>
                     <form-input type="text" title="Your last name" name="last_name" value="" required="required">Please enter your last name</form-input>
                     <form-input type="textarea" title="Test Text Input" name="text_text_input" value=""></form-input>
-                </template>
-            </add-row>
-            -->
-
-            <add-row save-action="saveZohoInstances" load-data="" addrow-text="Add Instance" save-text="Save" row-title="API Instance">
-                <template>
-                    <form-input type="text" title="Client ID" name="avantis_zoho_client_instance_id" required="required"></form-input>
-                    <form-input type="password" title="Client Secret" name="avantis_zoho_client_instance_secret" required="required"></form-input>
-                    <form-input type="textarea" title="Client Scopes (One scope per line)" name="avantis_zoho_client_instance_scopes" placeholder="ZohoBooks.invoices.READ" required="required"></form-input>
-                    <form-input type="text" title="Countries (Optional)" name="avantis_zoho_client_instance_countries" helper="Comma separated list of ISO 3166 two letter country codes."></form-input>
-                    <form-input type="text" title="Region (Optional)" name="avantis_zoho_client_instance_region"></form-input>
-                    <div class="button_group">
-                        <button type="button" data-action="another_function">Another button</button>
-                    </div>
                 </template>
             </add-row>
         </setting-card>
@@ -162,6 +147,7 @@
             setTimeout(() => {
                 formFinishedProcessing(button, form_content);
                 console.log(btoa(JSON.stringify(data)));
+                console.log(data);
             }, 1000)
         }
     </script>
