@@ -24,6 +24,8 @@ export class AddRows extends HTMLElement {
                 const action = element.target.getAttribute('data-action');
                 if (action && typeof this[action] === 'function') {
                     this[action].call(this, element.target);
+                } else if (action && typeof window[action] === 'function') {
+                    window[action].call(this, element.target);
                 }
             }
         });
@@ -104,9 +106,11 @@ export class AddRows extends HTMLElement {
 
         if (typeof data == 'object') {
             Object.keys(data).forEach((key) => {
-                if (typeof data[key] === 'object') {
-                    const input = new_row_element.querySelector(`form-input[name="${key}"]`);
+                const input = new_row_element.querySelector(`form-input[name="${key}"]`);
+                if (input && typeof data[key] === 'object') {
                     input.shadowRoot.updateInput(data[key] && data[key].value ? data[key].value : '');
+                } else if(input) {
+                    input.shadowRoot.updateInput(data[key] ? data[key] : '');
                 }
             });
         }
