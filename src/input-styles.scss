@@ -2,7 +2,8 @@ p{
     font-size: 1rem;
 
     input,
-    textarea{
+    textarea,
+    select{
         background-color: hsl(240, 3%, 94%);
         border: solid 1px hsl(240, 3%, 84%);
         width: calc(100% - 1.9rem);
@@ -16,6 +17,16 @@ p{
         &:focus{
             outline: solid 1px var(--accent_button, hsl(330, 98%, 60%));
             border-color: var(--accent_button, hsl(330, 98%, 60%));
+        }
+
+        &:is(select) {
+            background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'><path fill='hsl(0, 0%, 30%)' d='M0 7.33l2.829-2.83 9.175 9.339 9.167-9.339 2.829 2.83-11.996 12.17z'/></svg>");
+            background-position-x: calc(100% - 0.8em);
+            background-repeat: no-repeat;
+            background-position-y: 50%;
+            width: calc(100% - 3px);
+            background-size: 14px;
+            appearance: none;
         }
     }
 
@@ -105,7 +116,8 @@ p{
         color: var(--input_error, hsl(330, 98%, 60%));
 
         input,
-        textarea{
+        textarea,
+        select{
             background-color: var(--input_error_background, hsl(330, 98%, 98%));
             border-color: var(--input_error, hsl(330, 98%, 60%));
 

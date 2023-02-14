@@ -24,7 +24,7 @@ export const getInputFields = (context) => {
     };
 
     context.querySelectorAll('form-input').forEach((input) => {
-        const this_input = input.shadowRoot.querySelector('input, textarea');
+        const this_input = input.shadowRoot.querySelector('input, textarea, select');
         if (this_input) {
             try {
                 inputs[this_input.name] = {

@@ -19,6 +19,14 @@ export class FormInput extends HTMLElement {
                     input = this.shadowRoot.querySelector('textarea');
                     if (input) { input.value = value; }
                     break;
+                case 'select':
+                    input = this.shadowRoot.querySelector('select');
+                    if (input) { input.value = value; }
+                    break;
+                case 'toggle':
+                    input = this.shadowRoot.querySelector('input');
+                    if (input) { input.checked = value; }
+                    break;
                 default:
                     input = this.shadowRoot.querySelector('input');
                     if (input) { input.value = value; }
@@ -83,6 +91,19 @@ export class FormInput extends HTMLElement {
                     rows="${input_defaults.rows}"
                 >${input_defaults.value}</textarea>
             </p>`;
+        case 'select':
+            input_defaults.helper_text = this.getAttribute('helper') ? this.getAttribute('helper') : '';
+            return `
+            <p>
+                <label for="${input_defaults.name}">${input_defaults.title}:</label>
+                <small class="helper">${input_defaults.helper_text}</small>
+                <select
+                    name="${input_defaults.name}"
+                    id="${input_defaults.name}"
+                    ` + (input_defaults.required ? `required="required" ` : '') + `>
+                    ${input_defaults.content}
+                </select>
+            </p>`;
         default:
             return `
             <p>
@@ -114,8 +135,9 @@ export class FormInput extends HTMLElement {
             value: this.getAttribute('value') || '',
             placeholder: this.getAttribute('placeholder') || '',
             checked: this.getAttribute('checked') || false,
-            helper_text: this.textContent || this.getAttribute('helper') || '',
+            helper_text: this.getAttribute('helper') || this.textContent || '',
             rows: this.getAttribute('rows') || 5,
+            content: this.innerHTML
         };
     }
 }

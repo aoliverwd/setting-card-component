@@ -59,17 +59,7 @@ export class AddRows extends HTMLElement {
     getCurrentTemplate() {
         const current_template = this.shadowRoot.querySelector('#row_template');
         if (current_template) {
-            const template_content = document.createElement('div');
-
-            // const remove_button = document.createElement('button');
-            // remove_button.setAttribute('data-action', 'removeRow');
-            // remove_button.classList.add('warning');
-            // remove_button.textContent = this.getAttribute('removerow-text') || 'Remove Row';
-
-            template_content.innerHTML = current_template.innerHTML;
-            // template_content.appendChild(remove_button);
-
-            return template_content.innerHTML;
+            return current_template.innerHTML;
         }
 
         return ``;
@@ -107,6 +97,7 @@ export class AddRows extends HTMLElement {
         if (typeof data == 'object') {
             Object.keys(data).forEach((key) => {
                 const input = new_row_element.querySelector(`form-input[name="${key}"]`);
+
                 if (input && typeof data[key] === 'object') {
                     input.shadowRoot.updateInput(data[key] && data[key].value ? data[key].value : '');
                 } else if(input) {
@@ -152,6 +143,8 @@ export class AddRows extends HTMLElement {
                 rows.push(input_values);
                 is_valid = !input_values.valid || !is_valid ? false : is_valid;
             });
+
+            console.log(rows);
 
             if (is_valid && save_action && typeof window[save_action] === 'function') {
                 window[save_action].call(this, rows, this_button);

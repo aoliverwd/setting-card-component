@@ -58,6 +58,14 @@
                 <form-input type="password" title="Some password" name="some_password" value="" required="required">Please add a password</form-input>
             </div>
 
+            <form-input type="select" title="Select form the list" name="list_select" required="required" helper="Select from the dropdown">
+                <option value="" disabled selected>-Select One-</option>
+                <option value="value_1">Value 1</option>
+                <option value="value_2">Value 2</option>
+                <option value="value_3">Value 3</option>
+                <option value="value_4">Value 4</option>
+            </form-input>
+
             <form-input type="textarea" title="Your message" name="message" value="" required="required">Please enter your message</form-input>
 
             <form-input type="textarea" title="Disabled textarea" name="disabled_message" value="Some text" disabled="disabled"></form-input>
@@ -116,11 +124,21 @@
 
 
         <setting-card card-title="Add Rows" style_path="./dist/" external_style="./src/test.css">
-            <add-row save-action="saveRows" load-data="" addrow-text="Add new row" save-text="Save row" row-title="Some Row">
+            <add-row save-action="saveRows" load-data="W3sidmFsaWQiOnRydWUsImZpcnN0X25hbWUiOnsidmFsdWUiOiJmbmFtZSIsIm5hbWUiOiJmaXJzdF9uYW1lIiwidHlwZSI6InRleHQiLCJyZXF1aXJlZCI6dHJ1ZSwidmFsaWQiOnRydWV9LCJsYXN0X25hbWUiOnsidmFsdWUiOiJsbmFtZSIsIm5hbWUiOiJsYXN0X25hbWUiLCJ0eXBlIjoidGV4dCIsInJlcXVpcmVkIjp0cnVlLCJ2YWxpZCI6dHJ1ZX0sInRleHRfdGV4dF9pbnB1dCI6eyJ2YWx1ZSI6InNvbWUgdGV4dCIsIm5hbWUiOiJ0ZXh0X3RleHRfaW5wdXQiLCJ0eXBlIjoidGV4dGFyZWEiLCJyZXF1aXJlZCI6ZmFsc2UsInZhbGlkIjp0cnVlfSwibGlzdF9zZWxlY3QiOnsidmFsdWUiOiJ2YWx1ZV8zIiwibmFtZSI6Imxpc3Rfc2VsZWN0IiwidHlwZSI6InNlbGVjdC1vbmUiLCJyZXF1aXJlZCI6dHJ1ZSwidmFsaWQiOnRydWV9LCJlbmFibGVfZGlzYWJsZV90b2dnbGUiOnsidmFsdWUiOnRydWUsIm5hbWUiOiJlbmFibGVfZGlzYWJsZV90b2dnbGUiLCJ0eXBlIjoiY2hlY2tib3giLCJyZXF1aXJlZCI6ZmFsc2UsImNoZWNrZWQiOnRydWUsInZhbGlkIjp0cnVlfX1d" addrow-text="Add new row" save-text="Save row" row-title="Some Row">
                 <template>
                     <form-input type="text" title="Your first name" name="first_name" value="" required="required">Please enter your first name</form-input>
                     <form-input type="text" title="Your last name" name="last_name" value="" required="required">Please enter your last name</form-input>
                     <form-input type="textarea" title="Test Text Input" name="text_text_input" value=""></form-input>
+
+                    <form-input type="select" title="Select form the list" name="list_select" required="required" helper="Select from the dropdown">
+                        <option value="" disabled selected>-Select One-</option>
+                        <option value="value_1">Value 1</option>
+                        <option value="value_2">Value 2</option>
+                        <option value="value_3">Value 3</option>
+                        <option value="value_4">Value 4</option>
+                    </form-input>
+
+                    <form-input type="toggle" title="Enabled/Disable" name="enable_disable_toggle"></form-input>
                 </template>
             </add-row>
         </setting-card>
