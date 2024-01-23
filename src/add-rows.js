@@ -69,9 +69,10 @@ export class AddRows extends HTMLElement {
         const rows_container = this.shadowRoot.querySelector('#rows');
         const new_row_element = document.createElement('details');
         const style_path_element = this.closest('[data-style_path]');
+        let status = this.getAttribute('status-field');
 
         const remove_button_text = this.getAttribute('removerow-text') || 'Remove Row';
-        const row_title = this.getAttribute('row-title') || 'Row';
+        let row_title = this.getAttribute('row-title') || 'Row';
         const row_number = rows_container.querySelectorAll('details').length + 1;
         const array_svg = `<svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg"><path d="M511.9 652.4l379.9-365.6c13.8-13.7 36.2-13.7 50.1 0 13.8 13.7 13.8 35.9 0 49.6L537.1 737.3c-13.9 13.7-36.3 13.7-50.1 0L82.1 336.4c-13.9-13.7-13.8-35.9 0-49.6s36.2-13.7 50.1 0z"/></svg>`;
 
@@ -84,12 +85,22 @@ export class AddRows extends HTMLElement {
             new_row_element.setAttribute('data-style_path', style_path_element.getAttribute('data-style_path'));
         }
 
+        // Get template literals from string
+        data = typeof data === 'object' ? data : {};
+        data.row_number = row_number;
+        row_title = this.interpolateTemplateLiteral(row_title, data);
+
+        // Get status
+        const status_value = typeof data[status] === 'object' ? data[status].value : '';
+        status = status ? `<span data-enabled="${status_value}" title="Status"></span>` : '';
+
         new_row_element.innerHTML = `
         <summary>
-            <span>
-                ${row_title}: ${row_number}
+            <div>
+                ${status}
+                <span>${row_title}</span>
                 <button data-action="removeRow" data-blur="resetButton" class="warning">${remove_button_text}</button>
-            </span>
+            </div>
             ${array_svg}
         </summary>
         <section>${this.getCurrentTemplate()}</section>`;
@@ -107,6 +118,14 @@ export class AddRows extends HTMLElement {
         }
 
         rows_container.appendChild(new_row_element);
+    }
+
+    interpolateTemplateLiteral (input_string, data_object) {
+        return input_string.replace(/[$]{([^}]+)}/g, (_, path) => {
+            const properties = path.split('.');
+            const value = properties.reduce((prev, curr) => prev && prev[curr], data_object);
+            return value ? value : '';
+        });
     }
 
     removeRow(this_button) {

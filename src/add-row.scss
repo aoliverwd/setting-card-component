@@ -63,16 +63,27 @@
                 }
             }
 
-            > span{
+            > div{
                 align-items: center;
                 display: flex;
                 flex-grow: 3;
-                gap: 20px;
+                gap: 10px;
 
                 button{
                     line-height: 1.2;
                     font-size: 1rem;
                     padding: 10px;
+                }
+
+                [data-enabled] {
+                    background-color: LightGrey;
+                    border-radius: 50%;
+                    aspect-ratio: 1;
+                    width: 15px;
+                }
+
+                [data-enabled="true"] {
+                    background-color: MediumSeaGreen;
                 }
             }
         }
