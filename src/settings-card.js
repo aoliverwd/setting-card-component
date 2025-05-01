@@ -71,8 +71,9 @@ export class SettingCard extends HTMLElement {
 
         this.attachShadow({mode: 'open'});
 
+        const content_is_in_template = this.querySelector('template');
         const template = this.getTemplate();
-        const elementHTML = this.innerHTML;
+        const elementHTML = content_is_in_template ? content_is_in_template.innerHTML : this.innerHTML;
 
         this.innerHTML = '';
         this.shadowRoot.appendChild(template.content.cloneNode(true));
