@@ -1,173 +1,284 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Settings Card</title>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Settings Card</title>
 
-    <style>
+        <style>
+            :root {
+                --accent_button: hsl(207, 68%, 41%);
+                --accent_button_hover: hsl(206, 78%, 33%);
+                --accent_button_active: hsl(205, 85%, 25%);
+                --accent_button_color: hsl(0, 0%, 100%);
 
-        :root{
-            --accent_button: hsl(207, 68%, 41%);
-            --accent_button_hover: hsl(206, 78%, 33%);
-            --accent_button_active: hsl(205, 85%, 25%);
-            --accent_button_color: hsl(0, 0%, 100%);
+                --input_background: hsl(240, 3%, 94%);
+                --body_color: hsl(0, 0%, 20%);
+                --input_error: hsl(0, 67%, 53%);
+                --input_error_background: hsl(0, 67%, 97%);
+            }
 
-            --input_background: hsl(240, 3%, 94%);
-            --body_color: hsl(0, 0%, 20%);
-            --input_error: hsl(0, 67%, 53%);
-            --input_error_background: hsl(0, 67%, 97%);
-        }
+            body {
+                background-color: hsl(240, 3%, 94%);
+                font-family: sans-serif;
+                display: flex;
+                margin: 40px;
+                gap: 20px;
+            }
 
-        body{
-            background-color: hsl(240, 3%, 94%);
-            font-family: sans-serif;
-            display: flex;
-            margin: 40px;
-            gap: 20px;
-        }
+            body > * {
+                grid-template-columns: 1fr;
+                align-self: flex-start;
+                max-width: 600px;
+                display: grid;
+                width: 100%;
+                gap: 20px;
+            }
 
-        body > *{
-            grid-template-columns: 1fr;
-            align-self: flex-start;
-            max-width: 600px;
-            display: grid;
-            width: 100%;
-            gap: 20px;
-        }
+            script {
+                display: none;
+            }
+        </style>
+    </head>
+    <body>
+        <section>
+            <setting-card
+                card-title="Card Title"
+                post-to-endpoint="/ajax-request.php"
+                style_path="./dist/"
+                external_style="./src/test.css"
+            >
+                <form-input type="hidden" name="some_hidden_field" value="Hidden field value"></form-input>
 
-        script{
-            display: none;
-        }
-    </style>
-</head>
-<body>
+                <p>
+                    Anim sed dolore veniam ut <a href="/cupidatat" target="_blank">cupidatat</a> pariatur culpa ullamco
+                    ea anim aliqua et in non sed proident esse id adipisicing labore in et adipisicing ex eiusmod sunt
+                    dolor est enim eiusmod eu id.
+                </p>
 
-    <section>
-        <setting-card card-title="Card Title" post-to-endpoint="/ajax-request.php" style_path="./dist/" external_style="./src/test.css">
+                <div class="split_section">
+                    <form-input type="text" title="Your first name" name="first_name" value="" required="required"
+                        >Please enter your first name</form-input
+                    >
+                    <form-input type="text" title="Your last name" name="last_name" value="" required="required"
+                        >Please enter your last name</form-input
+                    >
 
-            <form-input type="hidden" name="some_hidden_field" value="Hidden field value"></form-input>
+                    <form-input type="email" title="Your email address" name="email" value="" required="required"
+                        >Please enter your email address</form-input
+                    >
+                    <form-input type="password" title="Some password" name="some_password" value="" required="required"
+                        >Please add a password</form-input
+                    >
+                </div>
 
-            <p>Anim sed dolore veniam ut <a href="/cupidatat" target="_blank">cupidatat</a> pariatur culpa ullamco ea anim aliqua et in non sed proident esse id adipisicing labore in et adipisicing ex eiusmod sunt dolor est enim eiusmod eu id.</p>
+                <form-input
+                    type="select"
+                    title="Select form the list"
+                    name="list_select"
+                    required="required"
+                    helper="Select from the dropdown"
+                >
+                    <option value="" disabled selected>-Select One-</option>
+                    <option value="value_1">Value 1</option>
+                    <option value="value_2">Value 2</option>
+                    <option value="value_3">Value 3</option>
+                    <option value="value_4">Value 4</option>
+                </form-input>
 
-            <div class="split_section">
-                <form-input type="text" title="Your first name" name="first_name" value="" required="required">Please enter your first name</form-input>
-                <form-input type="text" title="Your last name" name="last_name" value="" required="required">Please enter your last name</form-input>
+                <form-input type="textarea" title="Your message" name="message" value="" required="required"
+                    >Please enter your message</form-input
+                >
 
-                <form-input type="email" title="Your email address" name="email" value="" required="required">Please enter your email address</form-input>
-                <form-input type="password" title="Some password" name="some_password" value="" required="required">Please add a password</form-input>
-            </div>
+                <form-input
+                    type="textarea"
+                    title="Disabled textarea"
+                    name="disabled_message"
+                    value="Some text"
+                    disabled="disabled"
+                ></form-input>
+                <form-input
+                    type="text"
+                    title="Disabled input"
+                    name="disabled_input"
+                    value="Some text"
+                    disabled="disabled"
+                ></form-input>
 
-            <form-input type="select" title="Select form the list" name="list_select" required="required" helper="Select from the dropdown">
-                <option value="" disabled selected>-Select One-</option>
-                <option value="value_1">Value 1</option>
-                <option value="value_2">Value 2</option>
-                <option value="value_3">Value 3</option>
-                <option value="value_4">Value 4</option>
-            </form-input>
+                <div class="group">
+                    <form-input type="toggle" title="Checked toggle" name="toggle" checked="checked"></form-input>
+                    <form-input type="toggle" title="Unchecked toggle" name="another_toggle"></form-input>
+                </div>
 
-            <form-input type="textarea" title="Your message" name="message" value="" required="required">Please enter your message</form-input>
+                <hr />
 
-            <form-input type="textarea" title="Disabled textarea" name="disabled_message" value="Some text" disabled="disabled"></form-input>
-            <form-input type="text" title="Disabled input" name="disabled_input" value="Some text" disabled="disabled"></form-input>
+                <button type="button" class="update_settings">Save Settings</button>
+            </setting-card>
+        </section>
 
-            <div class="group">
-                <form-input type="toggle" title="Checked toggle" name="toggle" checked="checked"></form-input>
-                <form-input type="toggle" title="Unchecked toggle" name="another_toggle"></form-input>
-            </div>
+        <section>
+            <setting-card
+                card-title="Card Types"
+                post-to-endpoint="/ajax-request.php"
+                style_path="./dist/"
+                external_style="./src/test.css"
+            >
+                <div class="notice">
+                    <h2>Standard Card</h2>
+                    <p>Et consequat dolore consectetur ut ut nisi proident quis cupidatat sunt qui dolore.</p>
+                </div>
 
-            <hr>
+                <div class="notice info">
+                    <h2>Information Card</h2>
+                    <p>Et consequat dolore consectetur ut ut nisi proident quis cupidatat sunt qui dolore.</p>
+                </div>
 
-            <button type="button" class="update_settings">Save Settings</button>
+                <div class="notice warning">
+                    <h2>Warning Card</h2>
+                    <p>Et consequat dolore consectetur ut ut nisi proident quis cupidatat sunt qui dolore.</p>
+                </div>
 
-        </setting-card>
-    </section>
+                <div class="notice error">
+                    <h2>Error Card</h2>
+                    <p>Et consequat dolore consectetur ut ut nisi proident quis cupidatat sunt qui dolore.</p>
+                </div>
+            </setting-card>
+        </section>
 
-    <section>
-        <setting-card card-title="Card Types" post-to-endpoint="/ajax-request.php" style_path="./dist/" external_style="./src/test.css">
-            <div class="notice">
-                <h2>Standard Card</h2>
-                <p>Et consequat dolore consectetur ut ut nisi proident quis cupidatat sunt qui dolore.</p>
-            </div>
+        <section>
+            <setting-card
+                card-title="Button Group"
+                post-to-endpoint="/ajax-request.php"
+                style_path="./dist/"
+                external_style="./src/test.css"
+            >
+                <div class="group">
+                    <button type="button" data-action="some_function">Some button</button>
+                    <button type="button" data-action="another_function">Another button</button>
+                    <button type="button" data-action="another_function">Another button</button>
+                    <button type="button" data-action="another_function">Another button</button>
+                    <button type="button" data-action="another_function">Another button</button>
+                    <button type="button" data-action="another_function">Another button</button>
 
-            <div class="notice info">
-                <h2>Information Card</h2>
-                <p>Et consequat dolore consectetur ut ut nisi proident quis cupidatat sunt qui dolore.</p>
-            </div>
+                    <a href="/" class="button">Button link</a>
+                </div>
+            </setting-card>
 
-            <div class="notice warning">
-                <h2>Warning Card</h2>
-                <p>Et consequat dolore consectetur ut ut nisi proident quis cupidatat sunt qui dolore.</p>
-            </div>
+            <setting-card card-title="Add Rows" style_path="./dist/" external_style="./src/test.css">
+                <add-row
+                    save-action="saveRows"
+                    addrow-text="Add new row"
+                    save-text="Save row"
+                    status-field="enable_disable_toggle"
+                    row-title="Some Row: ${row_number} - ${list_select.value}"
+                    load-data="W3sidmFsaWQiOnRydWUsImZpcnN0X25hbWUiOnsidmFsdWUiOiJmbmFtZSIsIm5hbWUiOiJmaXJzdF9uYW1lIiwidHlwZSI6InRleHQiLCJyZXF1aXJlZCI6dHJ1ZSwidmFsaWQiOnRydWV9LCJsYXN0X25hbWUiOnsidmFsdWUiOiJsbmFtZSIsIm5hbWUiOiJsYXN0X25hbWUiLCJ0eXBlIjoidGV4dCIsInJlcXVpcmVkIjp0cnVlLCJ2YWxpZCI6dHJ1ZX0sInRleHRfdGV4dF9pbnB1dCI6eyJ2YWx1ZSI6InNvbWUgdGV4dCIsIm5hbWUiOiJ0ZXh0X3RleHRfaW5wdXQiLCJ0eXBlIjoidGV4dGFyZWEiLCJyZXF1aXJlZCI6ZmFsc2UsInZhbGlkIjp0cnVlfSwibGlzdF9zZWxlY3QiOnsidmFsdWUiOiJ2YWx1ZV8zIiwibmFtZSI6Imxpc3Rfc2VsZWN0IiwidHlwZSI6InNlbGVjdC1vbmUiLCJyZXF1aXJlZCI6dHJ1ZSwidmFsaWQiOnRydWV9LCJlbmFibGVfZGlzYWJsZV90b2dnbGUiOnsidmFsdWUiOnRydWUsIm5hbWUiOiJlbmFibGVfZGlzYWJsZV90b2dnbGUiLCJ0eXBlIjoiY2hlY2tib3giLCJyZXF1aXJlZCI6ZmFsc2UsImNoZWNrZWQiOnRydWUsInZhbGlkIjp0cnVlfX1d"
+                >
+                    <template>
+                        <form-input type="text" title="Your first name" name="first_name" value="" required="required"
+                            >Please enter your first name</form-input
+                        >
+                        <form-input type="text" title="Your last name" name="last_name" value="" required="required"
+                            >Please enter your last name</form-input
+                        >
+                        <form-input
+                            type="textarea"
+                            title="Test Text Input"
+                            name="text_text_input"
+                            value=""
+                        ></form-input>
 
-            <div class="notice error">
-                <h2>Error Card</h2>
-                <p>Et consequat dolore consectetur ut ut nisi proident quis cupidatat sunt qui dolore.</p>
-            </div>
-        </setting-card>
-    </section>
+                        <form-input
+                            type="select"
+                            title="Select form the list"
+                            name="list_select"
+                            required="required"
+                            helper="Select from the dropdown"
+                        >
+                            <option value="" disabled selected>-Select One-</option>
+                            <option value="value_1">Value 1</option>
+                            <option value="value_2">Value 2</option>
+                            <option value="value_3">Value 3</option>
+                            <option value="value_4">Value 4</option>
+                        </form-input>
 
+                        <form-input type="toggle" title="Enabled/Disable" name="enable_disable_toggle"></form-input>
+                    </template>
+                </add-row>
+            </setting-card>
 
-    <section>
-        <setting-card card-title="Button Group" post-to-endpoint="/ajax-request.php" style_path="./dist/" external_style="./src/test.css">
-            <div class="group">
-                <button type="button" data-action="some_function">Some button</button>
-                <button type="button" data-action="another_function">Another button</button>
-                <button type="button" data-action="another_function">Another button</button>
-                <button type="button" data-action="another_function">Another button</button>
-                <button type="button" data-action="another_function">Another button</button>
-                <button type="button" data-action="another_function">Another button</button>
-
-                <a href="/" class="button">Button link</a>
-            </div>
-        </setting-card>
-
-
-        <setting-card card-title="Add Rows" style_path="./dist/" external_style="./src/test.css">
-            <add-row save-action="saveRows" addrow-text="Add new row" save-text="Save row" status-field="enable_disable_toggle" row-title="Some Row: ${row_number} - ${list_select.value}" load-data="W3sidmFsaWQiOnRydWUsImZpcnN0X25hbWUiOnsidmFsdWUiOiJmbmFtZSIsIm5hbWUiOiJmaXJzdF9uYW1lIiwidHlwZSI6InRleHQiLCJyZXF1aXJlZCI6dHJ1ZSwidmFsaWQiOnRydWV9LCJsYXN0X25hbWUiOnsidmFsdWUiOiJsbmFtZSIsIm5hbWUiOiJsYXN0X25hbWUiLCJ0eXBlIjoidGV4dCIsInJlcXVpcmVkIjp0cnVlLCJ2YWxpZCI6dHJ1ZX0sInRleHRfdGV4dF9pbnB1dCI6eyJ2YWx1ZSI6InNvbWUgdGV4dCIsIm5hbWUiOiJ0ZXh0X3RleHRfaW5wdXQiLCJ0eXBlIjoidGV4dGFyZWEiLCJyZXF1aXJlZCI6ZmFsc2UsInZhbGlkIjp0cnVlfSwibGlzdF9zZWxlY3QiOnsidmFsdWUiOiJ2YWx1ZV8zIiwibmFtZSI6Imxpc3Rfc2VsZWN0IiwidHlwZSI6InNlbGVjdC1vbmUiLCJyZXF1aXJlZCI6dHJ1ZSwidmFsaWQiOnRydWV9LCJlbmFibGVfZGlzYWJsZV90b2dnbGUiOnsidmFsdWUiOnRydWUsIm5hbWUiOiJlbmFibGVfZGlzYWJsZV90b2dnbGUiLCJ0eXBlIjoiY2hlY2tib3giLCJyZXF1aXJlZCI6ZmFsc2UsImNoZWNrZWQiOnRydWUsInZhbGlkIjp0cnVlfX1d">
+            <setting-card card-title="Add Rows" style_path="./dist/" external_style="./src/test.css">
                 <template>
-                    <form-input type="text" title="Your first name" name="first_name" value="" required="required">Please enter your first name</form-input>
-                    <form-input type="text" title="Your last name" name="last_name" value="" required="required">Please enter your last name</form-input>
-                    <form-input type="textarea" title="Test Text Input" name="text_text_input" value=""></form-input>
+                    <add-row
+                        save-action="saveRows"
+                        addrow-text="Add new row"
+                        save-text="Save row"
+                        status-field="enable_disable_toggle"
+                        row-title="Some Row: ${row_number} - ${list_select.value}"
+                        load-data="W3sidmFsaWQiOnRydWUsImZpcnN0X25hbWUiOnsidmFsdWUiOiJmbmFtZSIsIm5hbWUiOiJmaXJzdF9uYW1lIiwidHlwZSI6InRleHQiLCJyZXF1aXJlZCI6dHJ1ZSwidmFsaWQiOnRydWV9LCJsYXN0X25hbWUiOnsidmFsdWUiOiJsbmFtZSIsIm5hbWUiOiJsYXN0X25hbWUiLCJ0eXBlIjoidGV4dCIsInJlcXVpcmVkIjp0cnVlLCJ2YWxpZCI6dHJ1ZX0sInRleHRfdGV4dF9pbnB1dCI6eyJ2YWx1ZSI6InNvbWUgdGV4dCIsIm5hbWUiOiJ0ZXh0X3RleHRfaW5wdXQiLCJ0eXBlIjoidGV4dGFyZWEiLCJyZXF1aXJlZCI6ZmFsc2UsInZhbGlkIjp0cnVlfSwibGlzdF9zZWxlY3QiOnsidmFsdWUiOiJ2YWx1ZV8zIiwibmFtZSI6Imxpc3Rfc2VsZWN0IiwidHlwZSI6InNlbGVjdC1vbmUiLCJyZXF1aXJlZCI6dHJ1ZSwidmFsaWQiOnRydWV9LCJlbmFibGVfZGlzYWJsZV90b2dnbGUiOnsidmFsdWUiOnRydWUsIm5hbWUiOiJlbmFibGVfZGlzYWJsZV90b2dnbGUiLCJ0eXBlIjoiY2hlY2tib3giLCJyZXF1aXJlZCI6ZmFsc2UsImNoZWNrZWQiOnRydWUsInZhbGlkIjp0cnVlfX1d"
+                    >
+                        <template>
+                            <form-input
+                                type="text"
+                                title="Your first name"
+                                name="first_name"
+                                value=""
+                                required="required"
+                                >Please enter your first name</form-input
+                            >
+                            <form-input type="text" title="Your last name" name="last_name" value="" required="required"
+                                >Please enter your last name</form-input
+                            >
+                            <form-input
+                                type="textarea"
+                                title="Test Text Input"
+                                name="text_text_input"
+                                value=""
+                            ></form-input>
 
-                    <form-input type="select" title="Select form the list" name="list_select" required="required" helper="Select from the dropdown">
-                        <option value="" disabled selected>-Select One-</option>
-                        <option value="value_1">Value 1</option>
-                        <option value="value_2">Value 2</option>
-                        <option value="value_3">Value 3</option>
-                        <option value="value_4">Value 4</option>
-                    </form-input>
+                            <form-input
+                                type="select"
+                                title="Select form the list"
+                                name="list_select"
+                                required="required"
+                                helper="Select from the dropdown"
+                            >
+                                <option value="" disabled selected>-Select One-</option>
+                                <option value="value_1">Value 1</option>
+                                <option value="value_2">Value 2</option>
+                                <option value="value_3">Value 3</option>
+                                <option value="value_4">Value 4</option>
+                            </form-input>
 
-                    <form-input type="toggle" title="Enabled/Disable" name="enable_disable_toggle"></form-input>
+                            <form-input type="toggle" title="Enabled/Disable" name="enable_disable_toggle"></form-input>
+                        </template>
+                    </add-row>
                 </template>
-            </add-row>
-        </setting-card>
+            </setting-card>
+        </section>
 
-    </section>
+        <script type="module">
+            // CDN: https://cdn.jsdelivr.net/gh/aoliverwd/setting-card-component@main/dist/settings-card.min.js
+            import { SettingCard, formProcessing, formFinishedProcessing } from "./src/settings-card.js";
+            import { FormInput } from "./src/form-input.js";
+            import { AddRows } from "./src/add-rows.js";
 
-    <script type="module">
-        // CDN: https://cdn.jsdelivr.net/gh/aoliverwd/setting-card-component@main/dist/settings-card.min.js
-        import {SettingCard, formProcessing, formFinishedProcessing} from './src/settings-card.js';
-        import {FormInput} from './src/form-input.js';
-        import {AddRows} from './src/add-rows.js';
+            // button functions
+            window.some_function = (button, class_instance) => {
+                console.log(class_instance);
+            };
 
-        // button functions
-        window.some_function = (button, class_instance) => {
-            console.log(class_instance);
-        }
+            window.another_function = (button, class_instance) => {
+                console.log(button);
+            };
 
-        window.another_function = (button, class_instance) => {
-            console.log(button);
-        }
-
-        window.saveRows = (data, button) => {
-            const form_content = formProcessing(button);
-            setTimeout(() => {
-                formFinishedProcessing(button, form_content);
-                console.log(btoa(JSON.stringify(data)));
-                console.log(data);
-            }, 1000)
-        }
-    </script>
-</body>
+            window.saveRows = (data, button) => {
+                const form_content = formProcessing(button);
+                setTimeout(() => {
+                    formFinishedProcessing(button, form_content);
+                    console.log(btoa(JSON.stringify(data)));
+                    console.log(data);
+                }, 1000);
+            };
+        </script>
+    </body>
 </html>
